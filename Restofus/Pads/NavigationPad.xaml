@@ -1,0 +1,8 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui">
+    <StackPanel
+      Orientation="Vertical"
+      Background="#ffffff"
+      >
+  
+    </StackPanel>
+</UserControl>

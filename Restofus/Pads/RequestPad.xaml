@@ -1,0 +1,52 @@
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  DataContext="{Binding RequestPadContext}">
+  
+    <StackPanel
+      Orientation="Vertical"
+      Background="#293955"
+      >
+
+      <Grid>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <DropDown
+          Items="{Binding RequestMethods}"
+          SelectedItem="{Binding RequestMethods.Selected, Mode=TwoWay}"
+          Height="36"
+          VerticalAlignment="Center">
+
+          <DropDown.ItemTemplate>
+            <DataTemplate>
+              <StackPanel>
+                <TextBlock Text="{Binding Method}" FontSize="18" />
+              </StackPanel>
+            </DataTemplate>
+          </DropDown.ItemTemplate>
+
+        </DropDown>
+
+        <TextBox
+          Grid.Column="1"
+          Text="{Binding UrlInputText, Mode=TwoWay}">
+          
+        </TextBox>
+
+        <Button
+          Grid.Column="2"
+          Command="{Binding SendButtonCommand}">
+          
+          <TextBlock Text="{Binding SendButtonText}"></TextBlock>
+          
+        </Button>
+        
+      </Grid>
+
+    </StackPanel>
+  
+</UserControl>
