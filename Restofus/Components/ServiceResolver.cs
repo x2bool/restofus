@@ -29,11 +29,11 @@ namespace Restofus.Components
                 var type = service.GetType();
 
                 var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead && p.CanWrite);
+                    .Where(p => p.CanRead);
 
                 foreach (var prop in props)
                 {
-                    if (prop.DeclaringType == typeof(BaseContext))
+                    if (prop.DeclaringType == typeof(BaseContext) && prop.CanWrite)
                     {
                         var value = provider.GetService(prop.PropertyType);
                         prop.SetValue(service, value);

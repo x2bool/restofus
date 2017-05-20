@@ -22,7 +22,7 @@ namespace Restofus.Pads
 
         public class Context : BaseContext
         {
-            public RequestEditor.Context RequestEditorContext { get; set; }
+            public RequestEditor.Context RequestEditorContext { get; }
 
             public Context(
                 RequestEditor.Context requestEditorContext)

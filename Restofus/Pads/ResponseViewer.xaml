@@ -10,7 +10,7 @@
 
       <TabItem>
         <TabItem.Header>
-          <TextBlock>Body</TextBlock>
+          <TextBlock Text="{Binding I18N[Body]}"/>
         </TabItem.Header>
 
         <TextBox BorderThickness="0" Text="{Binding ResponseBodyText}" />
@@ -18,7 +18,7 @@
 
       <TabItem>
         <TabItem.Header>
-          <TextBlock>Headers</TextBlock>
+          <TextBlock Text="{Binding I18N[Headers]}"/>
         </TabItem.Header>
 
         <TextBox BorderThickness="0" Text="{Binding ResponseHeadersText}" />

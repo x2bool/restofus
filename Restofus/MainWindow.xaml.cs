@@ -21,11 +21,11 @@ namespace Restofus
 
         public class Context : BaseContext
         {
-            public NavigationPad.Context NavigationPadContext { get; set; }
+            public NavigationPad.Context NavigationPadContext { get; }
 
-            public RequestPad.Context RequestPadContext { get; set; }
+            public RequestPad.Context RequestPadContext { get; }
             
-            public ResponsePad.Context ResponsePadContext { get; set; }
+            public ResponsePad.Context ResponsePadContext { get; }
 
             public Context(
                 NavigationPad.Context navigationPadContext,

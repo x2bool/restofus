@@ -17,7 +17,7 @@ namespace Restofus.Pads
 
         public class Context : BaseContext
         {
-            public ResponseViewer.Context ResponseViewerContext { get; set; }
+            public ResponseViewer.Context ResponseViewerContext { get; }
 
             public Context(
                 ResponseViewer.Context responseViewerContext,
