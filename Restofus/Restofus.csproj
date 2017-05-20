@@ -27,6 +27,9 @@
       <Compile Update="Pads\ResponseViewer.xaml.cs">
         <DependentUpon>ResponseViewer.xaml</DependentUpon>
       </Compile>
+      <Compile Update="Pads\WorkspaceTabs.xaml.cs">
+        <DependentUpon>WorkspaceTabs.xaml</DependentUpon>
+      </Compile>
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Views\" />

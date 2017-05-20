@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Restofus.Components;
 using Restofus.Pads;
 
 namespace Restofus
@@ -18,16 +19,20 @@ namespace Restofus
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context
+        public class Context : BaseContext
         {
-            public RequestPad.Context RequestPadContext { get; }
+            public NavigationPad.Context NavigationPadContext { get; set; }
 
-            public ResponsePad.Context ResponsePadContext { get; }
+            public RequestPad.Context RequestPadContext { get; set; }
+            
+            public ResponsePad.Context ResponsePadContext { get; set; }
 
             public Context(
+                NavigationPad.Context navigationPadContext,
                 RequestPad.Context requestPadContext,
                 ResponsePad.Context responsePadContext)
             {
+                NavigationPadContext = navigationPadContext;
                 RequestPadContext = requestPadContext;
                 ResponsePadContext = responsePadContext;
             }

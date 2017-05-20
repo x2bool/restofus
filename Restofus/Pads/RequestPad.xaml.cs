@@ -20,42 +20,27 @@ namespace Restofus.Pads
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context
+        public class Context : BaseContext
         {
+            public RequestEditor.Context RequestEditorContext { get; set; }
+
             public Context(
-                HttpDispatcher httpDispatcher)
+                RequestEditor.Context requestEditorContext)
             {
-                SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ => {
-                    var request = BuildHttpRequest();
-                    httpDispatcher.Send(request);
-                    return Task.CompletedTask;
-                });
+                RequestEditorContext = requestEditorContext;
+
+                //SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ => {
+                //    var request = BuildHttpRequest();
+                //    httpDispatcher.Send(request);
+                //    return Task.CompletedTask;
+                //});
             }
-
-            public string UrlInputText { get; set; } = "";
-
-            public string SendButtonText { get; } = "Send";
-
-            public ReactiveCommand<Unit> SendButtonCommand { get; }
-
-            public RequestMethods RequestMethods { get; } = new RequestMethods();
             
             HttpRequestMessage BuildHttpRequest()
             {
-                return new HttpRequestMessage(RequestMethods.Selected, UrlInputText);
+                return new HttpRequestMessage(
+                    RequestEditorContext.RequestMethods.Selected, RequestEditorContext.UrlInputText);
             }
-        }
-    }
-
-    public class RequestMethods : ReactiveList<HttpMethod>
-    {
-        public HttpMethod Selected { get; set; }
-
-        public RequestMethods()
-        {
-            AddRange(new HttpMethods());
-
-            Selected = this[0];
         }
     }
     

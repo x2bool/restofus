@@ -1,15 +1,21 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System.Collections.Generic;
+using System;
+using System.Collections;
 using ReactiveUI;
+using System.Reactive;
 using Restofus.Components;
+using System.Threading.Tasks;
+using System.Net.Http;
 using Restofus.Utils;
 
 namespace Restofus.Pads
 {
-    public class NavigationPad : UserControl
+    public class WorkspaceTabs : UserControl
     {
-        public NavigationPad()
+        public WorkspaceTabs()
         {
             AvaloniaXamlLoader.Load(this);
         }
@@ -19,4 +25,5 @@ namespace Restofus.Pads
             
         }
     }
+    
 }

@@ -1,25 +1,31 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui">
-  
-  <Grid
-    Background="#e6e7e8">
+
+  <Grid>
 
     <Grid.RowDefinitions>
-      <RowDefinition Height="36" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
+    <TabControl Grid.Row="0"  Background="Red">
 
-    <Rectangle Grid.Row="0"/>
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock>Body</TextBlock>
+        </TabItem.Header>
 
-    <TextBox
-      Grid.Row="1"
-      AcceptsReturn="True"
-      Text="{Binding ResponseBody}">
-    </TextBox>
+        <TextBox BorderThickness="0" Text="{Binding ResponseBodyText}" />
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock>Headers</TextBlock>
+        </TabItem.Header>
+
+        <TextBox BorderThickness="0" Text="{Binding ResponseHeadersText}" />
+      </TabItem>
+
+    </TabControl>
 
   </Grid>
-    
+
 </UserControl>

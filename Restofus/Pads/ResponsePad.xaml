@@ -1,6 +1,6 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  DataContext="{Binding ResponsePadContext}"
+  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
   Padding="1"
   Background="#8e9bbc">
   
@@ -12,23 +12,13 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-
     <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
-      <TextBlock Foreground="#ffffff" Margin="3">Response</TextBlock>
+      <TextBlock Foreground="#ffffff" Margin="3" Text="{Binding I18N[Response]}" />
     </StackPanel>
 
     <Rectangle Grid.Row="1" Fill="#cfd6e5"/> 
     
-    <TextBox
-      Grid.Row="2"
-      AcceptsReturn="True"
-      Text="{Binding ResponseBody}"
-      BorderThickness="0">
-      
-    </TextBox>
+    <pads:ResponseViewer Grid.Row="2" DataContext="{Binding ResponseViewerContext}" />
         
   </Grid>
   

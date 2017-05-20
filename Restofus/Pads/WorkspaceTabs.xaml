@@ -1,0 +1,15 @@
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus">
+  
+    <StackPanel
+      Orientation="Vertical"
+      >
+
+      <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <TextBlock Foreground="#4d6082" Margin="3">.</TextBlock>
+      </StackPanel>
+
+    </StackPanel>
+  
+</UserControl>

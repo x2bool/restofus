@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Restofus.Components;
 
 namespace Restofus.Pads
 {
@@ -11,7 +12,7 @@ namespace Restofus.Pads
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context
+        public class Context : BaseContext
         {
 
         }

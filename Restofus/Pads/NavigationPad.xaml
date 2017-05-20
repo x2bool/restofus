@@ -1,6 +1,5 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  DataContext="{Binding NavigationPadContext}"
   Padding="1"
   Background="#8e9bbc">
 
@@ -17,7 +16,7 @@
     </Grid.ColumnDefinitions>
 
     <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
-      <TextBlock Foreground="#ffffff" Margin="3">Explorer</TextBlock>
+      <TextBlock Foreground="#ffffff" Margin="3" Text="{Binding I18N[Navigation]}"/>
     </StackPanel>
 
     <Rectangle Grid.Row="1" Fill="#cfd6e5"/>

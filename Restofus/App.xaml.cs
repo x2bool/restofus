@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Restofus.Pads;
 using System.Net.Http;
 using Restofus.Components;
+using Restofus.Utils;
+using System.Reflection;
 
 namespace Restofus
 {
@@ -18,7 +20,7 @@ namespace Restofus
         static void Main(string[] args)
         {
             // configure ioc
-            var provider = Provider.Build(new ServiceCollection());
+            var provider = ServiceResolver.Build(new ServiceCollection());
 
             // run application
             AppBuilder.Configure<App>()
@@ -30,41 +32,6 @@ namespace Restofus
         {
             AvaloniaXamlLoader.Load(this);
             base.Initialize();
-        }
-
-        class Provider : IServiceProvider
-        {
-            static IServiceProvider provider;
-
-            public object GetService(Type serviceType)
-            {
-                return provider.GetService(serviceType);
-            }
-
-            public T GetService<T>()
-            {
-                return provider.GetService<T>();
-            }
-
-            public static IServiceProvider Build(IServiceCollection services)
-            {
-                if (provider == null)
-                {
-                    services.AddSingleton<IServiceProvider, Provider>();
-
-                    services.AddSingleton<HttpClient>();
-                    services.AddSingleton<HttpDispatcher>();
-
-                    services.AddTransient<NavigationPad.Context>();
-                    services.AddTransient<RequestPad.Context>();
-                    services.AddTransient<ResponsePad.Context>();
-                    services.AddTransient<MainWindow.Context>();
-
-                    provider = services.BuildServiceProvider();
-                }
-
-                return new Provider();
-            }
         }
     }
 }
