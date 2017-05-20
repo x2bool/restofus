@@ -9,6 +9,7 @@ using System.Reactive;
 using Restofus.Components;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Restofus.Utils;
 
 namespace Restofus.Pads
 {
@@ -37,7 +38,7 @@ namespace Restofus.Pads
 
             public ReactiveCommand<Unit> SendButtonCommand { get; }
 
-            public HttpMethods RequestMethods { get; } = new HttpMethods();
+            public RequestMethods RequestMethods { get; } = new RequestMethods();
             
             HttpRequestMessage BuildHttpRequest()
             {
@@ -46,21 +47,13 @@ namespace Restofus.Pads
         }
     }
 
-    public class HttpMethods : ReactiveList<HttpMethod>
+    public class RequestMethods : ReactiveList<HttpMethod>
     {
         public HttpMethod Selected { get; set; }
 
-        static HttpMethod Patch { get; } = new HttpMethod("PATCH");
-
-        public HttpMethods()
+        public RequestMethods()
         {
-            Add(HttpMethod.Get);
-            Add(HttpMethod.Post);
-            Add(HttpMethod.Put);
-            Add(HttpMethod.Delete);
-            Add(Patch);
-            Add(HttpMethod.Options);
-            Add(HttpMethod.Head);
+            AddRange(new HttpMethods());
 
             Selected = this[0];
         }

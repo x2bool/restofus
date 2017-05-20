@@ -1,12 +1,14 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  DataContext="{Binding ResponsePadContext}">
+  DataContext="{Binding ResponsePadContext}"
+  Padding="1"
+  Background="#8e9bbc">
   
-  <Grid
-    Background="#e6e7e8">
+  <Grid>
 
     <Grid.RowDefinitions>
-      <RowDefinition Height="36" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="28" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -14,12 +16,17 @@
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <Rectangle Grid.Row="0"/>
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
+      <TextBlock Foreground="#ffffff" Margin="3">Response</TextBlock>
+    </StackPanel>
 
+    <Rectangle Grid.Row="1" Fill="#cfd6e5"/> 
+    
     <TextBox
-      Grid.Row="1"
+      Grid.Row="2"
       AcceptsReturn="True"
-      Text="{Binding ResponseBody}">
+      Text="{Binding ResponseBody}"
+      BorderThickness="0">
       
     </TextBox>
         

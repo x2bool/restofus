@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui">
+  
+  <Grid
+    Background="#e6e7e8">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="36" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Rectangle Grid.Row="0"/>
+
+    <TextBox
+      Grid.Row="1"
+      AcceptsReturn="True"
+      Text="{Binding ResponseBody}">
+    </TextBox>
+
+  </Grid>
+    
+</UserControl>

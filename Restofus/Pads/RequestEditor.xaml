@@ -1,0 +1,21 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui">
+
+  <TabControl Classes="sidebar">
+    
+    <TabItem>
+      <TabItem.Header>
+        <TextBlock>Body</TextBlock>
+      </TabItem.Header>
+      <TextBlock>Tab1</TextBlock>
+    </TabItem>
+    
+    <TabItem>
+      <TabItem.Header>
+        <TextBlock>Headers</TextBlock>
+      </TabItem.Header>
+      <TextBlock>Tab2</TextBlock>
+    </TabItem>
+    
+  </TabControl>
+    
+</UserControl>

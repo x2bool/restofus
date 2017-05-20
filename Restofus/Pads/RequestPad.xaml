@@ -1,10 +1,10 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  DataContext="{Binding RequestPadContext}">
+  DataContext="{Binding RequestPadContext}"
+  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus">
   
     <StackPanel
       Orientation="Vertical"
-      Background="#293955"
       >
 
       <Grid>
@@ -46,6 +46,8 @@
         </Button>
         
       </Grid>
+
+      <pads:RequestEditor/>
 
     </StackPanel>
   

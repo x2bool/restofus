@@ -1,10 +1,12 @@
 ﻿<Window
   xmlns="https://github.com/avaloniaui"
   xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
-  MinWidth="500"
-  MinHeight="300">
+  MinWidth="800"
+  MinHeight="360"
+  Background="#293955">
 
-  <Grid>
+  <Grid
+    Margin="5">
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="200" />
@@ -16,11 +18,11 @@
 
     <pads:NavigationPad Grid.Column="0" />
 
-    <GridSplitter Grid.Column="1" /> 
+    <GridSplitter Grid.Column="1" Background="#293955" /> 
     
     <pads:RequestPad Grid.Column="2" />
 
-    <GridSplitter Grid.Column="3" />
+    <GridSplitter Grid.Column="3" Background="#293955" />
     
     <pads:ResponsePad Grid.Column="4" />
     

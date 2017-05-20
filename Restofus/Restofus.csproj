@@ -20,4 +20,15 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
         <PackageReference Include="Serilog.Sinks.Trace" Version="2.1.0" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Pads\RequestEditor.xaml.cs">
+        <DependentUpon>RequestEditor.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pads\ResponseViewer.xaml.cs">
+        <DependentUpon>ResponseViewer.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Views\" />
+    </ItemGroup>
 </Project>

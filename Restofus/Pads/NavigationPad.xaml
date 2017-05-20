@@ -1,8 +1,34 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui">
-    <StackPanel
-      Orientation="Vertical"
-      Background="#ffffff"
-      >
-  
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  DataContext="{Binding NavigationPadContext}"
+  Padding="1"
+  Background="#8e9bbc">
+
+  <Grid>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="28" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
+      <TextBlock Foreground="#ffffff" Margin="3">Explorer</TextBlock>
     </StackPanel>
+
+    <Rectangle Grid.Row="1" Fill="#cfd6e5"/>
+
+    <TextBox
+      Grid.Row="2"
+      AcceptsReturn="True"
+      BorderThickness="0">
+      
+    </TextBox>
+
+  </Grid>
+    
 </UserControl>
