@@ -39,7 +39,7 @@ namespace Restofus.Components
                 .Select(e => e.EventArgs);
         }
 
-        public void Send(HttpRequestMessage request)
+        public void Dispatch(HttpRequestMessage request)
         {
             RequestEvent?.Invoke(this, request);
 

@@ -13,7 +13,7 @@ using Restofus.Utils;
 
 namespace Restofus.Pads
 {
-    public class WorkspaceTabs : UserControl
+    public class WorkspaceTabs : UserControl<WorkspaceTabs.Context>
     {
         public WorkspaceTabs()
         {

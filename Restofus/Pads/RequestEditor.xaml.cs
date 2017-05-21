@@ -10,11 +10,9 @@ using System.Net.Http;
 
 namespace Restofus.Pads
 {
-    public class RequestEditor : UserControl
+    public class RequestEditor : UserControl<RequestEditor.Context>
     {
         Button sendRequestButton;
-
-        public event EventHandler SendRequest;
 
         public RequestEditor()
         {
@@ -23,7 +21,10 @@ namespace Restofus.Pads
             sendRequestButton = this.FindControl<Button>(nameof(sendRequestButton));
             sendRequestButton.Click += (_, e) =>
             {
-                SendRequest?.Invoke(this, null);
+                WithContext(context =>
+                {
+                    context.SendRequest();
+                });
             };
         }
 
@@ -50,6 +51,12 @@ namespace Restofus.Pads
             {
                 get => requestHeadersText;
                 set => this.RaiseAndSetIfChanged(ref requestHeadersText, value);
+            }
+            
+            public event EventHandler SendingRequest;
+            public void SendRequest()
+            {
+                SendingRequest?.Invoke(this, null);
             }
         }
 

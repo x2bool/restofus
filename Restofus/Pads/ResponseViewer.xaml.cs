@@ -3,10 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using Restofus.Components;
+using Restofus.Utils;
 
 namespace Restofus.Pads
 {
-    public class ResponseViewer : UserControl
+    public class ResponseViewer : UserControl<ResponseViewer.Context>
     {
         public ResponseViewer()
         {

@@ -13,7 +13,7 @@ using Restofus.Utils;
 
 namespace Restofus.Pads
 {
-    public class RequestPad : UserControl
+    public class RequestPad : UserControl<RequestPad.Context>
     {
         public RequestPad()
         {
@@ -22,24 +22,37 @@ namespace Restofus.Pads
 
         public class Context : BaseContext
         {
+            HttpDispatcher httpDispatcher;
+
             public RequestEditor.Context RequestEditorContext { get; }
 
             public Context(
-                RequestEditor.Context requestEditorContext)
+                RequestEditor.Context requestEditorContext,
+                HttpDispatcher httpDispatcher)
             {
-                RequestEditorContext = requestEditorContext;
+                this.httpDispatcher = httpDispatcher;
 
-                //SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ => {
-                //    var request = BuildHttpRequest();
-                //    httpDispatcher.Send(request);
-                //    return Task.CompletedTask;
-                //});
+                RequestEditorContext = requestEditorContext;
+                RequestEditorContext.SendingRequest += HandleSendingRequest;
             }
-            
-            HttpRequestMessage BuildHttpRequest()
+
+            void HandleSendingRequest(object sender, EventArgs e)
+            {
+                var request = BuildHttpRequest(RequestEditorContext);
+                httpDispatcher.Dispatch(request);
+            }
+
+            HttpRequestMessage BuildHttpRequest(RequestEditor.Context requestEditorContext)
             {
                 return new HttpRequestMessage(
-                    RequestEditorContext.RequestMethods.Selected, RequestEditorContext.UrlInputText);
+                    requestEditorContext.RequestMethods.Selected, requestEditorContext.UrlInputText);
+            }
+
+            public override void Dispose()
+            {
+                RequestEditorContext.SendingRequest -= HandleSendingRequest;
+
+                base.Dispose();
             }
         }
     }

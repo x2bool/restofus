@@ -27,7 +27,7 @@ namespace Restofus.Components
             BaseContextManager.Instance.I18NChanged += HandleI18NChanged;
         }
 
-        void IDisposable.Dispose()
+        public virtual void Dispose()
         {
             BaseContextManager.Instance.I18NChanged -= HandleI18NChanged;
         }

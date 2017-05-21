@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using Restofus.Components;
 using Restofus.Pads;
 using Restofus.Utils;
 using System;
@@ -9,7 +10,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
-namespace Restofus.Components
+namespace Restofus.Utils
 {
     public class ServiceResolver : IServiceProvider
     {

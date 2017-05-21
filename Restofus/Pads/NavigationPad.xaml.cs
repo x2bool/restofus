@@ -7,7 +7,7 @@ using Restofus.Utils;
 
 namespace Restofus.Pads
 {
-    public class NavigationPad : UserControl
+    public class NavigationPad : UserControl<NavigationPad.Context>
     {
         public NavigationPad()
         {

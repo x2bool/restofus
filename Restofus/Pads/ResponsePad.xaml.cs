@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 
 namespace Restofus.Pads
 {
-    public class ResponsePad : UserControl
+    public class ResponsePad : UserControl<ResponsePad.Context>
     {
         public ResponsePad()
         {
@@ -28,14 +28,7 @@ namespace Restofus.Pads
 
                 httpDispatcher.Responses
                     .Select(r => r.Content.ReadAsStringAsync().Result)
-                    .BindTo(this, x => x.ResponseBody);
-            }
-
-            string responseBody;
-            public string ResponseBody
-            {
-                get => responseBody;
-                set => this.RaiseAndSetIfChanged(ref responseBody, value);
+                    .BindTo(ResponseViewerContext, x => x.ResponseBodyText);
             }
         }
     }
