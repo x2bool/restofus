@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using Restofus.Utils;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace Restofus.Components
 {
     public class HttpDispatcher
     {
-        HttpClient httpClient;
+        HttpClient<HttpDispatcher> httpClient;
 
         event EventHandler<HttpRequestMessage> RequestEvent;
         public IObservable<HttpRequestMessage> Requests { get; }
@@ -22,7 +23,7 @@ namespace Restofus.Components
         public IObservable<HttpRequestException> Exceptions { get; }
 
         public HttpDispatcher(
-            HttpClient httpClient)
+            HttpClient<HttpDispatcher> httpClient)
         {
             this.httpClient = httpClient;
             

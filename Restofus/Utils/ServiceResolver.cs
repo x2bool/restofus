@@ -52,7 +52,9 @@ namespace Restofus.Utils
         {
             if (provider == null)
             {
-                services.AddSingleton<HttpClient>();
+                services.AddTransient(_ => Build(services));
+
+                services.AddSingleton<HttpClient<HttpDispatcher>>();
                 services.AddSingleton<HttpDispatcher>();
 
                 services.AddSingleton<I18N>();
@@ -68,7 +70,6 @@ namespace Restofus.Utils
                 services.AddTransient<MainWindow.Context>();
 
                 provider = services.BuildServiceProvider();
-                //services.AddSingleton(provider);
             }
 
             return new ServiceResolver();
