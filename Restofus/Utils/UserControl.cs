@@ -2,12 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Restofus.Utils
 {
-    public class UserControl<T> : UserControl where T : class
+    public abstract class UserControl<T> : UserControl where T : class
     {
-        public void WithContext(Action<T> action)
+        protected T GetContext()
+        {
+            return DataContext as T;
+        }
+
+        protected void WithContext(Action<T> action)
         {
             var context = DataContext;
 

@@ -10,6 +10,7 @@ using Restofus.Components;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Restofus.Utils;
+using Restofus.Pads.Utils;
 
 namespace Restofus.Pads
 {
@@ -23,14 +24,17 @@ namespace Restofus.Pads
         public class Context : BaseContext
         {
             HttpDispatcher httpDispatcher;
+            RequestBuilder requestBuilder;
 
             public RequestEditor.Context RequestEditorContext { get; }
 
             public Context(
                 RequestEditor.Context requestEditorContext,
+                RequestBuilder requestBuilder,
                 HttpDispatcher httpDispatcher)
             {
                 this.httpDispatcher = httpDispatcher;
+                this.requestBuilder = requestBuilder;
 
                 RequestEditorContext = requestEditorContext;
                 RequestEditorContext.SendingRequest += HandleSendingRequest;
@@ -38,14 +42,8 @@ namespace Restofus.Pads
 
             void HandleSendingRequest(object sender, EventArgs e)
             {
-                var request = BuildHttpRequest(RequestEditorContext);
+                var request = requestBuilder.BuildFromContext(this);
                 httpDispatcher.Dispatch(request);
-            }
-
-            HttpRequestMessage BuildHttpRequest(RequestEditor.Context requestEditorContext)
-            {
-                return new HttpRequestMessage(
-                    requestEditorContext.RequestMethods.Selected, requestEditorContext.UrlInputText);
             }
 
             public override void Dispose()

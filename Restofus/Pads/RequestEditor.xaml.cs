@@ -2,6 +2,11 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using AvaloniaEdit;
+using AvaloniaEdit.Editing;
+using AvaloniaEdit.Highlighting;
+using AvaloniaEdit.Indentation.CSharp;
 using ReactiveUI;
 using Restofus.Components;
 using Restofus.Utils;
@@ -13,6 +18,7 @@ namespace Restofus.Pads
     public class RequestEditor : UserControl<RequestEditor.Context>
     {
         Button sendRequestButton;
+        TextEditor requestBodyEditor;
 
         public RequestEditor()
         {
@@ -24,6 +30,18 @@ namespace Restofus.Pads
                 WithContext(context =>
                 {
                     context.SendRequest();
+                });
+            };
+
+            requestBodyEditor = this.FindControl<TextEditor>(nameof(requestBodyEditor));
+            requestBodyEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+            requestBodyEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy();
+
+            requestBodyEditor.TextArea.TextEntered += (_, e) =>
+            {
+                WithContext(context =>
+                {
+                    context.RequestBodyText = requestBodyEditor.Text;
                 });
             };
         }

@@ -1,4 +1,6 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui">
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  xmlns:editor="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit">
 
   <Grid>
 
@@ -13,7 +15,13 @@
           <TextBlock Text="{Binding I18N[Body]}"/>
         </TabItem.Header>
 
-        <TextBox BorderThickness="0" Text="{Binding ResponseBodyText}" />
+        <editor:TextEditor
+          Name="responseBodyEditor"
+          IsReadOnly="True"
+          WordWrap="True"
+          TextBlock.FontSize="14"
+          Background="#ffdddd"/>
+        
       </TabItem>
 
       <TabItem>
