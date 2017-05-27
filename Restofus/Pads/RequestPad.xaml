@@ -8,11 +8,8 @@
   <Grid>
         
     <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-
-    <pads:WorkspaceTabs Grid.Row="0" />
 
     <pads:RequestEditor Grid.Row="1" DataContext="{Binding RequestEditorContext}" /> 
 

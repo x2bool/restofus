@@ -31,9 +31,6 @@
       <Compile Update="Pads\ResponseViewer.xaml.cs">
         <DependentUpon>ResponseViewer.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Pads\WorkspaceTabs.xaml.cs">
-        <DependentUpon>WorkspaceTabs.xaml</DependentUpon>
-      </Compile>
       <Compile Update="Pads\StatusBar.xaml.cs">
         <DependentUpon>StatusBar.xaml</DependentUpon>
       </Compile>
