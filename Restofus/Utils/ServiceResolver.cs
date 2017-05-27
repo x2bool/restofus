@@ -2,6 +2,7 @@
 using ReactiveUI;
 using Restofus.Components;
 using Restofus.Pads;
+using Restofus.Pads.Utils;
 using Restofus.Utils;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,7 @@ namespace Restofus.Utils
 
                 services.AddTransient<NavigationPad.Context>();
 
+                services.AddTransient<RequestBuilder>();
                 services.AddTransient<RequestEditor.Context>();
                 services.AddTransient<RequestPad.Context>();
 

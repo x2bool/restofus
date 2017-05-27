@@ -49,7 +49,7 @@
 
     </Grid>
 
-    <TabControl Grid.Row="1"  Background="Red">
+    <TabControl Grid.Row="1">
     
       <TabItem>
         <TabItem.Header>
@@ -61,6 +61,14 @@
           TextBlock.FontSize="14"
           Background="#ffffff" />
         
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Query]}" />
+        </TabItem.Header>
+
+        <TextBlock>Query</TextBlock>
       </TabItem>
     
       <TabItem>

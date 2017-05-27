@@ -7,8 +7,7 @@
   MinHeight="480"
   Background="#293955">
 
-  <Grid
-    Margin="5">
+  <Grid>
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="2*" />
@@ -18,15 +17,40 @@
       <ColumnDefinition Width="3*" />
     </Grid.ColumnDefinitions>
 
-    <pads:NavigationPad Grid.Column="0" DataContext="{Binding NavigationPadContext}" />
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="22" />
+    </Grid.RowDefinitions>
 
-    <GridSplitter Grid.Column="1" Background="#293955" /> 
-    
-    <pads:RequestPad Grid.Column="2" DataContext="{Binding RequestPadContext}" />
+    <pads:NavigationPad
+      Grid.Row="0" 
+      Grid.Column="0"
+      DataContext="{Binding NavigationPadContext}" />
 
-    <GridSplitter Grid.Column="3" Background="#293955" />
-    
-    <pads:ResponsePad Grid.Column="4" DataContext="{Binding ResponsePadContext}" />
+    <GridSplitter
+      Grid.Row="0"
+      Grid.Column="1"
+      Background="#293955" />
+
+    <pads:RequestPad
+      Grid.Row="0"
+      Grid.Column="2"
+      DataContext="{Binding RequestPadContext}" />
+
+    <GridSplitter
+      Grid.Row="0"
+      Grid.Column="3"
+      Background="#293955" />
+
+    <pads:ResponsePad
+      Grid.Row="0"
+      Grid.Column="4"
+      DataContext="{Binding ResponsePadContext}" />
+
+    <pads:StatusBar
+      Grid.Row="1"
+      Grid.ColumnSpan="5" 
+      />
     
   </Grid> 
   

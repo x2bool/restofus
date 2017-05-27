@@ -8,7 +8,7 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <TabControl Grid.Row="0"  Background="Red">
+    <TabControl Grid.Row="0">
 
       <TabItem>
         <TabItem.Header>
@@ -20,7 +20,7 @@
           IsReadOnly="True"
           WordWrap="True"
           TextBlock.FontSize="14"
-          Background="#ffdddd"/>
+          Background="#ffffff"/>
         
       </TabItem>
 

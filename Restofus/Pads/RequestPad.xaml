@@ -1,6 +1,9 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus">
+  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
+  Padding="1"
+  Background="#8e9bbc"
+  Margin="0,5,0,5">
   
   <Grid>
         

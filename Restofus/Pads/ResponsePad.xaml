@@ -2,7 +2,8 @@
   xmlns="https://github.com/avaloniaui"
   xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
   Padding="1"
-  Background="#8e9bbc">
+  Background="#8e9bbc"
+  Margin="0,5,5,5">
   
   <Grid>
 

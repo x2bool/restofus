@@ -34,5 +34,11 @@
       <Compile Update="Pads\WorkspaceTabs.xaml.cs">
         <DependentUpon>WorkspaceTabs.xaml</DependentUpon>
       </Compile>
+      <Compile Update="Pads\StatusBar.xaml.cs">
+        <DependentUpon>StatusBar.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Views\" />
     </ItemGroup>
 </Project>

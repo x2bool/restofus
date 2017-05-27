@@ -1,7 +1,8 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
   Padding="1"
-  Background="#8e9bbc">
+  Background="#8e9bbc"
+  Margin="5,5,0,5">
 
   <Grid>
 

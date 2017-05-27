@@ -14,6 +14,7 @@ namespace Restofus.Utils
             {
                 ["Send"] = "Send",
                 ["Body"] = "Body",
+                ["Query"] = "Query",
                 ["Headers"] = "Headers",
                 ["Navigation"] = "Navigation",
                 ["Response"] = "Response"
@@ -22,7 +23,12 @@ namespace Restofus.Utils
 
         public string this[string index]
         {
-            get => dict[index];
+            get
+            {
+                string item;
+                dict.TryGetValue(index, out item);
+                return item ?? "";
+            }
         }
     }
 }
