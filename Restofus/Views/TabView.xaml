@@ -1,0 +1,20 @@
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui">
+
+  <DropDown
+    Items="{Binding Items}"
+    SelectedItem="{Binding Items.Selected, Mode=TwoWay}"
+    Height="36"
+    VerticalAlignment="Center">
+
+    <DropDown.ItemTemplate>
+      <DataTemplate>
+        <StackPanel>
+          <TextBlock Text="Test" FontSize="18" />
+        </StackPanel>
+      </DataTemplate>
+    </DropDown.ItemTemplate>
+
+  </DropDown>
+    
+</UserControl>

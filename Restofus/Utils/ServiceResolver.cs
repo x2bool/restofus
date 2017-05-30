@@ -63,10 +63,10 @@ namespace Restofus.Utils
                 services.AddTransient<NavigationPad.Context>();
 
                 services.AddTransient<RequestBuilder>();
-                services.AddTransient<RequestEditor.Context>();
+                services.AddTransient<QueryEditor.Context>();
+                services.AddTransient<HeadersEditor.Context>();
                 services.AddTransient<RequestPad.Context>();
-
-                services.AddTransient<ResponseViewer.Context>();
+                
                 services.AddTransient<ResponsePad.Context>();
 
                 services.AddTransient<MainWindow.Context>();

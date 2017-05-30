@@ -7,7 +7,6 @@
   <Grid>
 
     <Grid.RowDefinitions>
-      <RowDefinition Height="0" />
       <RowDefinition Height="28" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
@@ -16,14 +15,10 @@
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
-      <TextBlock Foreground="#ffffff" Margin="3" Text="{Binding I18N[Navigation]}"/>
-    </StackPanel>
-
-    <Rectangle Grid.Row="1" Fill="#cfd6e5"/>
+    <Rectangle Grid.Row="0" Fill="#cfd6e5"/>
 
     <TextBox
-      Grid.Row="2"
+      Grid.Row="1"
       AcceptsReturn="True"
       BorderThickness="0">
       

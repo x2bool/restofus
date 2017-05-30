@@ -1,25 +1,40 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
   xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
+  xmlns:editor="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
   Padding="1"
   Background="#8e9bbc"
   Margin="0,5,5,5">
   
-  <Grid>
+  <Grid RowDefinitions="28,*">
 
-    <Grid.RowDefinitions>
-      <RowDefinition Height="0" />
-      <RowDefinition Height="28" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-
-    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4d6082">
-      <TextBlock Foreground="#ffffff" Margin="3" Text="{Binding I18N[Response]}" />
-    </StackPanel>
-
-    <Rectangle Grid.Row="1" Fill="#cfd6e5"/> 
+    <Rectangle Grid.Row="0" Fill="#cfd6e5"/> 
     
-    <pads:ResponseViewer Grid.Row="2" DataContext="{Binding ResponseViewerContext}" />
+    <TabControl Grid.Row="1">
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Body]}"/>
+        </TabItem.Header>
+
+        <editor:TextEditor
+          Name="responseBodyEditor"
+          IsReadOnly="True"
+          WordWrap="True"
+          TextBlock.FontSize="14"
+          Background="#ffffff"/>
+
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Headers]}"/>
+        </TabItem.Header>
+
+        <TextBox BorderThickness="0" Text="{Binding ResponseHeadersText}" />
+      </TabItem>
+
+    </TabControl>
         
   </Grid>
   

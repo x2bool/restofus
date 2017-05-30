@@ -1,0 +1,35 @@
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  Background="#ffffff">
+
+  <ListBox
+      Items="{Binding Items}"
+      SelectionMode="AlwaysSelected"
+      BorderThickness="0">
+
+    <ListBox.ItemTemplate>
+      <DataTemplate>
+
+        <Grid ColumnDefinitions="1*,1*,auto">
+
+          <Panel Grid.Column="0">
+            <TextBox IsVisible="{Binding IsParameter}" Text="{Binding Key}" />
+            <Button IsVisible="{Binding IsButton}">
+              <TextBlock Text="{Binding I18N[Add]}" />
+            </Button>
+          </Panel>
+
+          <TextBox IsVisible="{Binding IsParameter}" Grid.Column="1" Text="{Binding Value}" />
+
+          <Button IsVisible="{Binding IsParameter}" Grid.Column="2">
+            <TextBlock>X</TextBlock>
+          </Button>
+          
+        </Grid>
+
+      </DataTemplate>
+    </ListBox.ItemTemplate>
+
+  </ListBox>
+    
+</UserControl>

@@ -17,7 +17,10 @@ namespace Restofus.Utils
                 ["Query"] = "Query",
                 ["Headers"] = "Headers",
                 ["Navigation"] = "Navigation",
-                ["Response"] = "Response"
+                ["Response"] = "Response",
+                ["BaseAddress"] = "Base address",
+                ["Parameters"] = "Parameters",
+                ["Add"] = "Add"
             };
         }
 

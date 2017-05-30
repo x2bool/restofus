@@ -40,7 +40,7 @@ namespace Restofus.Components
                 .Select(e => e.EventArgs);
         }
 
-        public void Dispatch(HttpRequestMessage request)
+        public Task Dispatch(HttpRequestMessage request)
         {
             RequestEvent?.Invoke(this, request);
 
@@ -56,6 +56,8 @@ namespace Restofus.Components
                         ResponseEvent?.Invoke(this, task.Result);
                     }
                 });
+
+            return Task.CompletedTask;
         }
 
     }

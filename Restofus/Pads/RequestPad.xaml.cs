@@ -26,31 +26,56 @@ namespace Restofus.Pads
             HttpDispatcher httpDispatcher;
             RequestBuilder requestBuilder;
 
-            public RequestEditor.Context RequestEditorContext { get; }
-
             public Context(
-                RequestEditor.Context requestEditorContext,
                 RequestBuilder requestBuilder,
-                HttpDispatcher httpDispatcher)
+                HttpDispatcher httpDispatcher,
+                QueryEditor.Context queryEditorContext,
+                HeadersEditor.Context headersEditorContext)
             {
                 this.httpDispatcher = httpDispatcher;
                 this.requestBuilder = requestBuilder;
 
-                RequestEditorContext = requestEditorContext;
-                RequestEditorContext.SendingRequest += HandleSendingRequest;
+                QueryEditorContext = queryEditorContext;
+                HeadersEditorContext = headersEditorContext;
+
+                RequestMethods = new RequestMethods();
+                SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
+                {
+                    var request = requestBuilder.BuildFromContext(this);
+                    return httpDispatcher.Dispatch(request);
+                });
             }
 
-            void HandleSendingRequest(object sender, EventArgs e)
+            string urlInputText;
+            public string UrlInputText
             {
-                var request = requestBuilder.BuildFromContext(this);
-                httpDispatcher.Dispatch(request);
+                get => urlInputText;
+                set => this.RaiseAndSetIfChanged(ref urlInputText, value);
             }
 
-            public override void Dispose()
-            {
-                RequestEditorContext.SendingRequest -= HandleSendingRequest;
+            public RequestMethods RequestMethods { get; } = new RequestMethods();
 
-                base.Dispose();
+            public ReactiveCommand<Unit> SendButtonCommand { get; }
+
+            public QueryEditor.Context QueryEditorContext { get; }
+
+            public HeadersEditor.Context HeadersEditorContext { get; }
+        }
+
+        public class RequestMethods : ReactiveList<HttpMethod>
+        {
+            HttpMethod selected;
+            public HttpMethod Selected
+            {
+                get => selected;
+                set => this.RaiseAndSetIfChanged(ref selected, value);
+            }
+
+            public RequestMethods()
+            {
+                AddRange(new HttpMethods());
+
+                Selected = this[0];
             }
         }
     }

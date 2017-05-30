@@ -25,17 +25,20 @@
         <PackageReference Include="System.ValueTuple" Version="4.4.0-preview1-25305-02" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Pads\RequestEditor.xaml.cs">
-        <DependentUpon>RequestEditor.xaml</DependentUpon>
-      </Compile>
-      <Compile Update="Pads\ResponseViewer.xaml.cs">
-        <DependentUpon>ResponseViewer.xaml</DependentUpon>
-      </Compile>
       <Compile Update="Pads\StatusBar.xaml.cs">
         <DependentUpon>StatusBar.xaml</DependentUpon>
       </Compile>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Views\" />
+      <Compile Update="Pads\QueryEditor.xaml.cs">
+        <DependentUpon>QueryEditor.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\KeyValueEditor.xaml.cs">
+        <DependentUpon>KeyValueEditor.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pads\HeadersEditor.xaml.cs">
+        <DependentUpon>HeadersEditor.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\TabView.xaml.cs">
+        <DependentUpon>TabView.xaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

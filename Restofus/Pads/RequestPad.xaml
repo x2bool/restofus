@@ -1,17 +1,78 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
   xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
+  xmlns:editor="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
   Padding="1"
   Background="#8e9bbc"
   Margin="0,5,0,5">
-  
-  <Grid>
-        
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
 
-    <pads:RequestEditor Grid.Row="1" DataContext="{Binding RequestEditorContext}" /> 
+  <Grid RowDefinitions="auto,*">
+
+    <Grid Grid.Row="0" ColumnDefinitions="100,*,auto">
+
+      <DropDown
+        Items="{Binding RequestMethods}"
+        SelectedItem="{Binding RequestMethods.Selected, Mode=TwoWay}"
+        Height="36"
+        VerticalAlignment="Center">
+
+        <DropDown.ItemTemplate>
+          <DataTemplate>
+            <StackPanel>
+              <TextBlock Text="{Binding Method}" FontSize="18" />
+            </StackPanel>
+          </DataTemplate>
+        </DropDown.ItemTemplate>
+
+      </DropDown>
+
+      <TextBox
+        Grid.Column="1"
+        Text="{Binding UrlInputText, Mode=TwoWay}">
+
+      </TextBox>
+
+      <Button
+        Grid.Column="2"
+        Command="{Binding SendButtonCommand}">
+
+        <TextBlock Text="{Binding I18N[Send]}" />
+
+      </Button>
+
+    </Grid>
+
+    <TabControl Grid.Row="1">
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Body]}" />
+        </TabItem.Header>
+
+        <editor:TextEditor
+          Name="requestBodyEditor"
+          TextBlock.FontSize="14"
+          Background="#ffffff" />
+
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Query]}" />
+        </TabItem.Header>
+
+        <pads:QueryEditor DataContext="{Binding QueryEditorContext}" />
+      </TabItem>
+
+      <TabItem>
+        <TabItem.Header>
+          <TextBlock Text="{Binding I18N[Headers]}" />
+        </TabItem.Header>
+
+        <pads:HeadersEditor DataContext="{Binding HeadersEditorContext}" />
+      </TabItem>
+
+    </TabControl>
 
   </Grid>
   
