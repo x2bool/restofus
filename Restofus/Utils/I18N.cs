@@ -28,8 +28,7 @@ namespace Restofus.Utils
         {
             get
             {
-                string item;
-                dict.TryGetValue(index, out item);
+                dict.TryGetValue(index, out string item);
                 return item ?? "";
             }
         }

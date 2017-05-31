@@ -19,7 +19,7 @@
         <DropDown.ItemTemplate>
           <DataTemplate>
             <StackPanel>
-              <TextBlock Text="{Binding Method}" FontSize="18" />
+              <TextBlock Text="{Binding Name}" FontSize="18" />
             </StackPanel>
           </DataTemplate>
         </DropDown.ItemTemplate>

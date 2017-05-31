@@ -5,6 +5,7 @@ using AvaloniaEdit;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Restofus.Components;
+using Restofus.Components.Http;
 using Restofus.Utils;
 using System;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Restofus.Pads
                     {
                         responseBodyEditor.Text = FormatJson(text);
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         throw;
                     }
@@ -57,47 +58,66 @@ namespace Restofus.Pads
             }
         }
 
-        public class Context : BaseContext, IDisposable
+        public class Context : ReactiveObject
         {
-            IDisposable responsesSubscription;
+            IDisposable responseSubscription;
+            IDisposable contentSubscription;
+            IDisposable streamSubscription;
 
             public Context(
                 I18N i18n,
-                HttpDispatcher httpDispatcher)
+                RequestDispatcher httpDispatcher,
+                HeadersViewer.Context headersViewerContext)
             {
-                responsesSubscription = httpDispatcher.Responses
-                    .Select(async r =>
-                    {
-                        var body = await r.Content.ReadAsStringAsync();
-                        return new { Response = r, Body = body };
-                    })
-                    .Select(task => task.Result)
-                    .Subscribe(pair =>
-                    {
-                        ResponseBodyText = pair.Body;
-                        ResponseHeadersText = pair.Response.Headers.ToString();
-                    });
+                I18N = i18n;
+                HeadersViewerContext = headersViewerContext;
+
+                //var requestObservable = Observable.FromEventPattern<HttpRequestException>(
+                //        h => ExceptionEvent += h, h => ExceptionEvent -= h)
+                //    .Select(e => e.EventArgs);
+
+                //responseSubscription?.Dispose();
+                //    .Select(ReactiveResponse.FromHttpResponse)
+                //    .Subscribe(ObserveResponse);
             }
+
+            void ObserveResponse(ReactiveResponse response)
+            {
+                contentSubscription?.Dispose();
+                contentSubscription = response.WhenAnyValue(x => x.Content)
+                    .Subscribe(ObserveContent);
+            }
+
+            void ObserveContent(ReactiveResponseContent content)
+            {
+                streamSubscription?.Dispose();
+                streamSubscription = content.WhenAnyValue(x => x.MemoryStream)
+                    .Where(s => s != null)
+                    .Subscribe(ObserveStream);
+            }
+
+            void ObserveStream(MemoryStream stream)
+            {
+                StreamReader reader = new StreamReader(stream);
+                ResponseBodyText = reader.ReadToEnd();
+            }
+
+            public HeadersViewer.Context HeadersViewerContext { get; }
+
+            public I18N I18N { get; }
+
+            //ReactiveResponse response;
+            //public ReactiveResponse Response
+            //{
+            //    get => response;
+            //    set => this.RaiseAndSetIfChanged(ref response, value);
+            //}
 
             string responseBodyText;
             public string ResponseBodyText
             {
                 get => responseBodyText;
                 set => this.RaiseAndSetIfChanged(ref responseBodyText, value);
-            }
-
-            string responseHeadersText;
-            public string ResponseHeadersText
-            {
-                get => responseHeadersText;
-                set => this.RaiseAndSetIfChanged(ref responseHeadersText, value);
-            }
-
-            public override void Dispose()
-            {
-                responsesSubscription.Dispose();
-
-                base.Dispose();
             }
         }
     }

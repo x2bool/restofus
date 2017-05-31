@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Restofus.Utils;
 using Restofus.Pads.Utils;
+using Restofus.Components.Http;
 
 namespace Restofus.Pads
 {
@@ -21,14 +22,15 @@ namespace Restofus.Pads
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context : BaseContext
+        public class Context : ReactiveObject
         {
-            HttpDispatcher httpDispatcher;
+            RequestDispatcher httpDispatcher;
             RequestBuilder requestBuilder;
 
             public Context(
+                I18N i18n,
                 RequestBuilder requestBuilder,
-                HttpDispatcher httpDispatcher,
+                RequestDispatcher httpDispatcher,
                 QueryEditor.Context queryEditorContext,
                 HeadersEditor.Context headersEditorContext)
             {
@@ -38,12 +40,14 @@ namespace Restofus.Pads
                 QueryEditorContext = queryEditorContext;
                 HeadersEditorContext = headersEditorContext;
 
+                I18N = i18n;
+
                 RequestMethods = new RequestMethods();
-                SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
-                {
-                    var request = requestBuilder.BuildFromContext(this);
-                    return httpDispatcher.Dispatch(request);
-                });
+                //SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
+                //{
+                //    var request = requestBuilder.BuildFromContext(this);
+                //    return httpDispatcher.Dispatch(request);
+                //});
             }
 
             string urlInputText;
@@ -60,12 +64,14 @@ namespace Restofus.Pads
             public QueryEditor.Context QueryEditorContext { get; }
 
             public HeadersEditor.Context HeadersEditorContext { get; }
+
+            public I18N I18N { get; }
         }
 
-        public class RequestMethods : ReactiveList<HttpMethod>
+        public class RequestMethods : ReactiveMethodCollection
         {
-            HttpMethod selected;
-            public HttpMethod Selected
+            ReactiveMethod selected;
+            public ReactiveMethod Selected
             {
                 get => selected;
                 set => this.RaiseAndSetIfChanged(ref selected, value);
@@ -73,8 +79,7 @@ namespace Restofus.Pads
 
             public RequestMethods()
             {
-                AddRange(new HttpMethods());
-
+                AddRange(CreateDefault());
                 Selected = this[0];
             }
         }

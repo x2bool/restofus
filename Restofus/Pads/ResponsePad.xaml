@@ -31,7 +31,7 @@
           <TextBlock Text="{Binding I18N[Headers]}"/>
         </TabItem.Header>
 
-        <TextBox BorderThickness="0" Text="{Binding ResponseHeadersText}" />
+        <pads:HeadersViewer DataContext="{Binding HeadersViewerContext}" />
       </TabItem>
 
     </TabControl>

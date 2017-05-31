@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ReactiveUI;
 using Restofus.Components;
 using Restofus.Pads;
 
@@ -19,7 +20,7 @@ namespace Restofus
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context : BaseContext
+        public class Context : ReactiveObject
         {
             public NavigationPad.Context NavigationPadContext { get; }
 

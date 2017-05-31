@@ -4,19 +4,20 @@ using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using Restofus.Components;
 using Restofus.Utils;
+using Restofus.Views;
 
 namespace Restofus.Pads
 {
-    public class StatusBar : UserControl<StatusBar.Context>
+    public class HeadersViewer : UserControl<HeadersViewer.Context>
     {
-        public StatusBar()
+        public HeadersViewer()
         {
             AvaloniaXamlLoader.Load(this);
         }
 
         public class Context : ReactiveObject
         {
-            
+            public KeyValueEditor.Model KeyValueEditorModel { get; }
         }
     }
 }

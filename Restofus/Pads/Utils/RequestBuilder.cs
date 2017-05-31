@@ -10,7 +10,7 @@ namespace Restofus.Pads.Utils
         public HttpRequestMessage BuildFromContext(RequestPad.Context context)
         {
             var request = new HttpRequestMessage(
-                context.RequestMethods.Selected,
+                new HttpMethod(context.RequestMethods.Selected.Name),
                 context.UrlInputText);
             
             return request;

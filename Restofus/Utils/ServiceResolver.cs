@@ -19,34 +19,7 @@ namespace Restofus.Utils
 
         object IServiceProvider.GetService(Type serviceType)
         {
-            var service = provider.GetService(serviceType);
-            ResolveBase(service);
-            return service;
-        }
-
-        void ResolveBase(object service)
-        {
-            if (service != null && service is BaseContext)
-            {
-                var type = service.GetType();
-
-                var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.CanRead);
-
-                foreach (var prop in props)
-                {
-                    if (prop.DeclaringType == typeof(BaseContext) && prop.CanWrite)
-                    {
-                        var value = provider.GetService(prop.PropertyType);
-                        prop.SetValue(service, value);
-                    }
-                    else
-                    {
-                        var value = prop.GetValue(service);
-                        ResolveBase(value);
-                    }
-                }
-            }
+            return provider.GetService(serviceType);
         }
 
         public static IServiceProvider Build(IServiceCollection services)
@@ -55,8 +28,8 @@ namespace Restofus.Utils
             {
                 services.AddTransient(_ => Build(services));
 
-                services.AddSingleton<HttpClient<HttpDispatcher>>();
-                services.AddSingleton<HttpDispatcher>();
+                services.AddSingleton<HttpClient<RequestDispatcher>>();
+                services.AddSingleton<RequestDispatcher>();
 
                 services.AddSingleton<I18N>();
 
@@ -66,7 +39,8 @@ namespace Restofus.Utils
                 services.AddTransient<QueryEditor.Context>();
                 services.AddTransient<HeadersEditor.Context>();
                 services.AddTransient<RequestPad.Context>();
-                
+
+                services.AddTransient<HeadersViewer.Context>();
                 services.AddTransient<ResponsePad.Context>();
 
                 services.AddTransient<MainWindow.Context>();

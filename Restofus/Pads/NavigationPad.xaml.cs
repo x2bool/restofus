@@ -14,7 +14,7 @@ namespace Restofus.Pads
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context : BaseContext
+        public class Context : ReactiveObject
         {
             
         }
