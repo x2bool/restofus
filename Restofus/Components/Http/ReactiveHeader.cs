@@ -26,5 +26,15 @@ namespace Restofus.Components.Http
             get => val;
             set => this.RaiseAndSetIfChanged(ref val, value);
         }
+
+        public override string ToString()
+        {
+            return $"{name}: {val}";
+        }
+
+        public ReactiveHeader Clone()
+        {
+            return new ReactiveHeader(name, val);
+        }
     }
 }

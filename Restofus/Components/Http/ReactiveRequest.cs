@@ -34,5 +34,19 @@ namespace Restofus.Components.Http
             get => content;
             set => this.RaiseAndSetIfChanged(ref content, value);
         }
+
+        public override string ToString()
+        {
+            return $"{method}: {address}";
+        }
+
+        public ReactiveRequest Clone()
+        {
+            return new ReactiveRequest
+            {
+                Method = method.Clone(),
+                Address = address
+            };
+        }
     }
 }

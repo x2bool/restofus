@@ -2,13 +2,17 @@
   xmlns="https://github.com/avaloniaui"
   xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
   xmlns:editor="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+  xmlns:convert="clr-namespace:Restofus.Converters;assembly=Restofus"
   Padding="1"
   Background="#8e9bbc"
   Margin="0,5,5,5">
   
   <Grid RowDefinitions="28,*">
 
-    <Rectangle Grid.Row="0" Fill="#cfd6e5"/> 
+    <StackPanel Grid.Row="0" Background="#cfd6e5" Orientation="Horizontal">
+      <TextBlock Text="{Binding Response.StatusCode, Converter={Static convert:StatusCodeConverter.Instance}}" />
+      <TextBlock Text="{Binding Response.Content.MemoryStream.Length, Converter={Static convert:SizeConverter.Instance}}" />
+    </StackPanel>
     
     <TabControl Grid.Row="1">
 

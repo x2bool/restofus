@@ -40,5 +40,10 @@ namespace Restofus.Components.Http
         {
             return name;
         }
+
+        public ReactiveMethod Clone()
+        {
+            return new ReactiveMethod(name);
+        }
     }
 }

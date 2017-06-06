@@ -3,6 +3,7 @@ using Restofus.Components.Http;
 using Restofus.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -30,11 +31,13 @@ namespace Restofus.Components
         public Task Dispatch(ReactiveRequest request)
         {
             Task<HttpResponseMessage> sendTask = null;
-
+            
             try
             {
                 Request?.Invoke(this, request);
-                sendTask = httpClient.SendAsync(Convert(request));
+
+                var httpRequest = Convert(request);
+                sendTask = httpClient.SendAsync(httpRequest);
             }
             catch (Exception e)
             {
@@ -49,7 +52,8 @@ namespace Restofus.Components
                 }
                 else
                 {
-                    Response?.Invoke(this, Convert(task.Result));
+                    var response = Convert(task.Result);
+                    Response?.Invoke(this, response);
                 }
             });
 
@@ -61,9 +65,12 @@ namespace Restofus.Components
             var httpRequest = new HttpRequestMessage(
                 new HttpMethod(request.Method.Name), request.Address);
 
-            foreach (var header in request.Headers)
+            if (request.Headers != null)
             {
-                httpRequest.Headers.Add(header.Name, header.Value);
+                foreach (var header in request.Headers)
+                {
+                    httpRequest.Headers.Add(header.Name, header.Value);
+                }
             }
 
             return httpRequest;

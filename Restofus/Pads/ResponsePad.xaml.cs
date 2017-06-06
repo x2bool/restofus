@@ -72,17 +72,20 @@ namespace Restofus.Pads
                 I18N = i18n;
                 HeadersViewerContext = headersViewerContext;
 
-                //var requestObservable = Observable.FromEventPattern<HttpRequestException>(
-                //        h => ExceptionEvent += h, h => ExceptionEvent -= h)
-                //    .Select(e => e.EventArgs);
+                var requestObservable = Observable.FromEventPattern<ReactiveResponse>(
+                        h => httpDispatcher.Response += h, h => httpDispatcher.Response -= h)
+                    .Select(e => e.EventArgs);
 
-                //responseSubscription?.Dispose();
-                //    .Select(ReactiveResponse.FromHttpResponse)
-                //    .Subscribe(ObserveResponse);
+                responseSubscription?.Dispose();
+                responseSubscription = requestObservable
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Subscribe(ObserveResponse);
             }
 
             void ObserveResponse(ReactiveResponse response)
             {
+                Response = response;
+
                 contentSubscription?.Dispose();
                 contentSubscription = response.WhenAnyValue(x => x.Content)
                     .Subscribe(ObserveContent);
@@ -106,12 +109,28 @@ namespace Restofus.Pads
 
             public I18N I18N { get; }
 
-            //ReactiveResponse response;
-            //public ReactiveResponse Response
+            //string code;
+            //public string Code
             //{
-            //    get => response;
-            //    set => this.RaiseAndSetIfChanged(ref response, value);
+            //    get => code;
+            //    set => this.RaiseAndSetIfChanged(ref code, value);
             //}
+
+            //string time;
+            //public string Time
+            //{
+            //    get => time;
+            //    set => this.RaiseAndSetIfChanged(ref time, value);
+            //}
+
+            //string
+
+            ReactiveResponse response;
+            public ReactiveResponse Response
+            {
+                get => response;
+                set => this.RaiseAndSetIfChanged(ref response, value);
+            }
 
             string responseBodyText;
             public string ResponseBodyText

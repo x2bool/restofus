@@ -10,7 +10,6 @@ using Restofus.Components;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Restofus.Utils;
-using Restofus.Pads.Utils;
 using Restofus.Components.Http;
 
 namespace Restofus.Pads
@@ -25,17 +24,14 @@ namespace Restofus.Pads
         public class Context : ReactiveObject
         {
             RequestDispatcher httpDispatcher;
-            RequestBuilder requestBuilder;
 
             public Context(
                 I18N i18n,
-                RequestBuilder requestBuilder,
                 RequestDispatcher httpDispatcher,
                 QueryEditor.Context queryEditorContext,
                 HeadersEditor.Context headersEditorContext)
             {
                 this.httpDispatcher = httpDispatcher;
-                this.requestBuilder = requestBuilder;
 
                 QueryEditorContext = queryEditorContext;
                 HeadersEditorContext = headersEditorContext;
@@ -43,11 +39,11 @@ namespace Restofus.Pads
                 I18N = i18n;
 
                 RequestMethods = new RequestMethods();
-                //SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
-                //{
-                //    var request = requestBuilder.BuildFromContext(this);
-                //    return httpDispatcher.Dispatch(request);
-                //});
+
+                SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
+                {
+                    return httpDispatcher.Dispatch(BuildRequest());
+                });
             }
 
             string urlInputText;
@@ -66,6 +62,15 @@ namespace Restofus.Pads
             public HeadersEditor.Context HeadersEditorContext { get; }
 
             public I18N I18N { get; }
+
+            ReactiveRequest BuildRequest()
+            {
+                return new ReactiveRequest
+                {
+                    Method = RequestMethods.Selected.Clone(),
+                    Address = UrlInputText
+                };
+            }
         }
 
         public class RequestMethods : ReactiveMethodCollection

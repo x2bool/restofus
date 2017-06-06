@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Restofus.Components.Http
 {
-    public class ReactiveResponse : ReactiveObject
+    public class ReactiveResponse : ReactiveObject, IDisposable
     {
         int statusCode;
         public int StatusCode
@@ -28,6 +28,11 @@ namespace Restofus.Components.Http
         {
             get => content;
             set => this.RaiseAndSetIfChanged(ref content, value);
+        }
+
+        public void Dispose()
+        {
+            content.Dispose();
         }
     }
 }
