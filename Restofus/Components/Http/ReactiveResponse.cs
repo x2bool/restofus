@@ -32,7 +32,7 @@ namespace Restofus.Components.Http
 
         public void Dispose()
         {
-            content.Dispose();
+            content?.Dispose();
         }
     }
 }

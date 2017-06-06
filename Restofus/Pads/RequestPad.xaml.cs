@@ -38,56 +38,37 @@ namespace Restofus.Pads
 
                 I18N = i18n;
 
-                RequestMethods = new RequestMethods();
-
-                SendButtonCommand = ReactiveCommand.CreateAsyncTask(_ =>
+                Request = new ReactiveRequest
                 {
-                    return httpDispatcher.Dispatch(BuildRequest());
+                    Method = new ReactiveMethod("GET")
+                };
+
+                Methods = ReactiveMethodCollection.CreateDefault();
+
+                SendCommand = ReactiveCommand.CreateAsyncTask(_ =>
+                {
+                    return httpDispatcher.Dispatch(Request?.Clone());
                 });
             }
 
-            string urlInputText;
-            public string UrlInputText
+            ReactiveRequest request;
+            public ReactiveRequest Request
             {
-                get => urlInputText;
-                set => this.RaiseAndSetIfChanged(ref urlInputText, value);
+                get => request;
+                set => this.RaiseAndSetIfChanged(ref request, value);
             }
 
-            public RequestMethods RequestMethods { get; } = new RequestMethods();
+            public ReactiveMethodCollection Methods { get; }
 
-            public ReactiveCommand<Unit> SendButtonCommand { get; }
+            public ReactiveCommand<Unit> SendCommand { get; }
 
             public QueryEditor.Context QueryEditorContext { get; }
 
             public HeadersEditor.Context HeadersEditorContext { get; }
 
             public I18N I18N { get; }
-
-            ReactiveRequest BuildRequest()
-            {
-                return new ReactiveRequest
-                {
-                    Method = RequestMethods.Selected.Clone(),
-                    Address = UrlInputText
-                };
-            }
         }
-
-        public class RequestMethods : ReactiveMethodCollection
-        {
-            ReactiveMethod selected;
-            public ReactiveMethod Selected
-            {
-                get => selected;
-                set => this.RaiseAndSetIfChanged(ref selected, value);
-            }
-
-            public RequestMethods()
-            {
-                AddRange(CreateDefault());
-                Selected = this[0];
-            }
-        }
+        
     }
     
 }

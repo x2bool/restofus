@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Restofus.Components.Http
 {
-    public class ReactiveRequest : ReactiveObject
+    public class ReactiveRequest : ReactiveObject, IDisposable
     {
         ReactiveMethod method;
         public ReactiveMethod Method
@@ -44,9 +44,15 @@ namespace Restofus.Components.Http
         {
             return new ReactiveRequest
             {
-                Method = method.Clone(),
-                Address = address
+                method = method?.Clone(),
+                address = address,
+                content = content?.Clone()
             };
+        }
+
+        public void Dispose()
+        {
+            content?.Dispose();
         }
     }
 }
