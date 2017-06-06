@@ -28,7 +28,7 @@
 
       <TextBox
         Grid.Column="1"
-        Text="{Binding Request.Address, Mode=TwoWay}">
+        Text="{Binding Request.Url.Address, Mode=TwoWay}">
 
       </TextBox>
 

@@ -63,7 +63,7 @@ namespace Restofus.Components
         static HttpRequestMessage Convert(ReactiveRequest request)
         {
             var httpRequest = new HttpRequestMessage(
-                new HttpMethod(request.Method.Name), request.Address);
+                new HttpMethod(request.Method.Name), request.Url.Address);
 
             if (request.Headers != null)
             {

@@ -40,7 +40,8 @@ namespace Restofus.Pads
 
                 Request = new ReactiveRequest
                 {
-                    Method = new ReactiveMethod("GET")
+                    Method = new ReactiveMethod("GET"),
+                    Url = new ReactiveUrl()
                 };
 
                 Methods = ReactiveMethodCollection.CreateDefault();

@@ -14,11 +14,11 @@ namespace Restofus.Components.Http
             set => this.RaiseAndSetIfChanged(ref method, value);
         }
 
-        string address;
-        public string Address
+        ReactiveUrl url;
+        public ReactiveUrl Url
         {
-            get => address;
-            set => this.RaiseAndSetIfChanged(ref address, value);
+            get => url;
+            set => this.RaiseAndSetIfChanged(ref url, value);
         }
 
         ReactiveHeaderCollection headers;
@@ -37,7 +37,7 @@ namespace Restofus.Components.Http
 
         public override string ToString()
         {
-            return $"{method}: {address}";
+            return $"{method}: {url}";
         }
 
         public ReactiveRequest Clone()
@@ -45,7 +45,7 @@ namespace Restofus.Components.Http
             return new ReactiveRequest
             {
                 method = method?.Clone(),
-                address = address,
+                url = url,
                 content = content?.Clone()
             };
         }
