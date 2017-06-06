@@ -7,6 +7,9 @@ namespace Restofus.Utils
 {
     public class HttpClient<T> : HttpClient where T : class
     {
+        public HttpClient(HttpClientHandler handler) : base(handler)
+        {
 
+        }
     }
 }

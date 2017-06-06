@@ -26,8 +26,12 @@ namespace Restofus.Utils
             if (provider == null)
             {
                 services.AddTransient(_ => Build(services));
-
-                services.AddSingleton<HttpClient<RequestDispatcher>>();
+                
+                services.AddSingleton(_ => new HttpClient<RequestDispatcher>(
+                    new HttpClientHandler()
+                    {
+                        AllowAutoRedirect = false
+                    }));
                 services.AddSingleton<RequestDispatcher>();
 
                 services.AddSingleton<I18N>();
