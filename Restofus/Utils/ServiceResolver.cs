@@ -34,6 +34,8 @@ namespace Restofus.Utils
                     }));
                 services.AddSingleton<RequestDispatcher>();
 
+                services.AddSingleton<Navigator>();
+
                 services.AddSingleton<I18N>();
 
                 services.AddTransient<NavigationPad.Context>();

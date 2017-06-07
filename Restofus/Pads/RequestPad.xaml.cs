@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Restofus.Utils;
 using Restofus.Components.Http;
+using System.Reactive.Linq;
 
 namespace Restofus.Pads
 {
@@ -23,33 +24,48 @@ namespace Restofus.Pads
 
         public class Context : ReactiveObject
         {
+            IDisposable navigationSubscription;
+
+            Navigator navigator;
             RequestDispatcher httpDispatcher;
 
             public Context(
                 I18N i18n,
+                Navigator navigator,
                 RequestDispatcher httpDispatcher,
                 QueryEditor.Context queryEditorContext,
                 HeadersEditor.Context headersEditorContext)
             {
+                this.navigator = navigator;
                 this.httpDispatcher = httpDispatcher;
 
                 QueryEditorContext = queryEditorContext;
                 HeadersEditorContext = headersEditorContext;
 
                 I18N = i18n;
+                
+                navigationSubscription = navigator
+                    .GetNavigationObservable()
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Subscribe(ObserveNavigation);
 
+                Methods = ReactiveMethodCollection.CreateDefault();
+
+                SendCommand = ReactiveCommand.CreateAsyncTask(SendRequest);
+            }
+
+            void ObserveNavigation(object obj)
+            {
                 Request = new ReactiveRequest
                 {
                     Method = new ReactiveMethod("GET"),
                     Url = new ReactiveUrl()
                 };
+            }
 
-                Methods = ReactiveMethodCollection.CreateDefault();
-
-                SendCommand = ReactiveCommand.CreateAsyncTask(_ =>
-                {
-                    return httpDispatcher.Dispatch(Request?.Clone());
-                });
+            Task SendRequest(object arg)
+            {
+                return httpDispatcher.Dispatch(Request?.Clone());
             }
 
             ReactiveRequest request;

@@ -71,13 +71,9 @@ namespace Restofus.Pads
             {
                 I18N = i18n;
                 HeadersViewerContext = headersViewerContext;
-
-                var requestObservable = Observable.FromEventPattern<ReactiveResponse>(
-                        h => httpDispatcher.Response += h, h => httpDispatcher.Response -= h)
-                    .Select(e => e.EventArgs);
-
-                responseSubscription?.Dispose();
-                responseSubscription = requestObservable
+                
+                responseSubscription = httpDispatcher
+                    .GetResponseObservable()
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(ObserveResponse);
             }

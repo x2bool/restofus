@@ -18,9 +18,9 @@ namespace Restofus.Components
     {
         HttpClient<RequestDispatcher> httpClient;
 
-        public event EventHandler<ReactiveRequest> Request;
-        public event EventHandler<ReactiveResponse> Response;
-        public event EventHandler<Exception> Exception;
+        public event EventHandler<ReactiveRequest> Sending;
+        public event EventHandler<ReactiveResponse> Receiving;
+        //public event EventHandler<Exception> Exception;
 
         public RequestDispatcher(
             HttpClient<RequestDispatcher> httpClient)
@@ -34,26 +34,28 @@ namespace Restofus.Components
             
             try
             {
-                Request?.Invoke(this, request);
+                Sending?.Invoke(this, request);
 
                 var httpRequest = Convert(request);
                 sendTask = httpClient.SendAsync(httpRequest);
             }
-            catch (Exception e)
+            catch
             {
-                Exception?.Invoke(this, e);
+                //Exception?.Invoke(this, e);
+                throw;
             }
 
             sendTask?.ContinueWith(task =>
             {
                 if (task.Exception != null)
                 {
-                    Exception?.Invoke(this, task.Exception);
+                    //Exception?.Invoke(this, task.Exception);
+                    throw task.Exception;
                 }
                 else
                 {
                     var response = Convert(task.Result);
-                    Response?.Invoke(this, response);
+                    Receiving?.Invoke(this, response);
                 }
             });
 
@@ -118,5 +120,24 @@ namespace Restofus.Components
             return responseContent;
         }
 
+    }
+
+    public static class RequestDispatcherExtensions
+    {
+        public static IObservable<ReactiveRequest> GetRequestObservable(
+            this RequestDispatcher dispatcher)
+        {
+            return Observable.FromEventPattern<ReactiveRequest>(
+                        h => dispatcher.Sending += h, h => dispatcher.Sending -= h)
+                    .Select(e => e.EventArgs);
+        }
+
+        public static IObservable<ReactiveResponse> GetResponseObservable(
+            this RequestDispatcher dispatcher)
+        {
+            return Observable.FromEventPattern<ReactiveResponse>(
+                        h => dispatcher.Receiving += h, h => dispatcher.Receiving -= h)
+                    .Select(e => e.EventArgs);
+        }
     }
 }
