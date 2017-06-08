@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restofus.Components.Http
+namespace Restofus.Networking
 {
     public class ReactiveResponse : ReactiveObject, IDisposable
     {

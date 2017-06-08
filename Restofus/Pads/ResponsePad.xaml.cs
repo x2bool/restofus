@@ -5,7 +5,7 @@ using AvaloniaEdit;
 using Newtonsoft.Json;
 using ReactiveUI;
 using Restofus.Components;
-using Restofus.Components.Http;
+using Restofus.Networking;
 using Restofus.Utils;
 using System;
 using System.IO;

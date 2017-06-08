@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Restofus.Components.Http
+namespace Restofus.Networking
 {
     public class ReactiveUrl : ReactiveObject
     {

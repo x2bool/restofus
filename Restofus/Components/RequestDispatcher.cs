@@ -1,5 +1,5 @@
 ﻿using ReactiveUI;
-using Restofus.Components.Http;
+using Restofus.Networking;
 using Restofus.Utils;
 using System;
 using System.Collections.Generic;

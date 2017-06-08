@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restofus.Navigation;
+using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
@@ -8,11 +9,11 @@ namespace Restofus.Components
 {
     public class Navigator
     {
-        public event EventHandler<object> Navigating;
+        public event EventHandler<ReactiveFile> Navigating;
 
-        public Task Navigate(object obj)
+        public Task Navigate(ReactiveFile file)
         {
-            Navigating?.Invoke(this, obj);
+            Navigating?.Invoke(this, file);
 
             return Task.CompletedTask;
         }
@@ -20,9 +21,9 @@ namespace Restofus.Components
 
     public static class NavigatorExtensions
     {
-        public static IObservable<object> GetNavigationObservable(this Navigator navigator)
+        public static IObservable<ReactiveFile> GetNavigationObservable(this Navigator navigator)
         {
-            return Observable.FromEventPattern<object>(
+            return Observable.FromEventPattern<ReactiveFile>(
                         h => navigator.Navigating += h, h => navigator.Navigating -= h)
                     .Select(e => e.EventArgs);
         }

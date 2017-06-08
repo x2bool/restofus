@@ -10,8 +10,10 @@ using Restofus.Components;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Restofus.Utils;
-using Restofus.Components.Http;
+using Restofus.Networking;
 using System.Reactive.Linq;
+using Restofus.Navigation;
+using System.IO;
 
 namespace Restofus.Pads
 {
@@ -28,11 +30,13 @@ namespace Restofus.Pads
 
             Navigator navigator;
             RequestDispatcher httpDispatcher;
+            ReactiveRequestFactory requestFactory;
 
             public Context(
                 I18N i18n,
                 Navigator navigator,
                 RequestDispatcher httpDispatcher,
+                ReactiveRequestFactory requestFactory,
                 QueryEditor.Context queryEditorContext,
                 HeadersEditor.Context headersEditorContext)
             {
@@ -46,6 +50,7 @@ namespace Restofus.Pads
                 
                 navigationSubscription = navigator
                     .GetNavigationObservable()
+                    .Where(f => f != null)
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(ObserveNavigation);
 
@@ -54,13 +59,9 @@ namespace Restofus.Pads
                 SendCommand = ReactiveCommand.CreateAsyncTask(SendRequest);
             }
 
-            void ObserveNavigation(object obj)
+            void ObserveNavigation(ReactiveFile file)
             {
-                Request = new ReactiveRequest
-                {
-                    Method = new ReactiveMethod("GET"),
-                    Url = new ReactiveUrl()
-                };
+                Request = requestFactory.DeserializeRequest(new FileInfo(file.Path));
             }
 
             Task SendRequest(object arg)

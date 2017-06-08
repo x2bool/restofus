@@ -2,25 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Restofus.Components.Http
+namespace Restofus.Networking
 {
-    public class ReactiveRequestContent : ReactiveObject, IDisposable
+    public class ReactiveResponseContent : ReactiveObject, IDisposable
     {
         MemoryStream memoryStream;
         public MemoryStream MemoryStream
         {
             get => memoryStream;
             set => this.RaiseAndSetIfChanged(ref memoryStream, value);
-        }
-
-        public ReactiveRequestContent Clone()
-        {
-            return new ReactiveRequestContent
-            {
-                memoryStream = memoryStream
-            };
         }
 
         public void Dispose()

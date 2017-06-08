@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using Restofus.Components;
+using Restofus.Networking;
 using Restofus.Pads;
 using Restofus.Utils;
 using System;
@@ -33,6 +34,7 @@ namespace Restofus.Utils
                         AllowAutoRedirect = false
                     }));
                 services.AddSingleton<RequestDispatcher>();
+                services.AddTransient<ReactiveRequestFactory>();
 
                 services.AddSingleton<Navigator>();
 

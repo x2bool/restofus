@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Restofus.Components.Files
+namespace Restofus.Navigation
 {
     public class ReactiveFile : ReactiveObject
     {
