@@ -44,4 +44,12 @@
         <DependentUpon>TabView.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <None Update="Files\abc\example.rst">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Files\test.rst">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ namespace Restofus.Pads
                 this.navigator = navigator;
 
                 RootFiles = new ReactiveFileCollection();
-                RootFiles.Add(BuildFileTree("C:\\rest"));
+                RootFiles.Add(BuildFileTree(Path.GetFullPath(".\\Files")));
 
                 this.WhenAnyValue(x => x.SelectedFile)
                     .Where(f => f != null && !f.IsDirectory)

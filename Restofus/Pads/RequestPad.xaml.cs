@@ -30,18 +30,19 @@ namespace Restofus.Pads
 
             Navigator navigator;
             RequestDispatcher httpDispatcher;
-            ReactiveRequestFactory requestFactory;
+            ReactiveRequestSerializer requestSerializer;
 
             public Context(
                 I18N i18n,
                 Navigator navigator,
                 RequestDispatcher httpDispatcher,
-                ReactiveRequestFactory requestFactory,
+                ReactiveRequestSerializer requestSerializer,
                 QueryEditor.Context queryEditorContext,
                 HeadersEditor.Context headersEditorContext)
             {
                 this.navigator = navigator;
                 this.httpDispatcher = httpDispatcher;
+                this.requestSerializer = requestSerializer;
 
                 QueryEditorContext = queryEditorContext;
                 HeadersEditorContext = headersEditorContext;
@@ -51,6 +52,7 @@ namespace Restofus.Pads
                 navigationSubscription = navigator
                     .GetNavigationObservable()
                     .Where(f => f != null)
+                    .Select(CreateRequest)
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(ObserveNavigation);
 
@@ -59,9 +61,14 @@ namespace Restofus.Pads
                 SendCommand = ReactiveCommand.CreateAsyncTask(SendRequest);
             }
 
-            void ObserveNavigation(ReactiveFile file)
+            ReactiveRequest CreateRequest(ReactiveFile file)
             {
-                Request = requestFactory.DeserializeRequest(new FileInfo(file.Path));
+                return requestSerializer.Deserialize(new FileInfo(file.Path));
+            }
+
+            void ObserveNavigation(ReactiveRequest request)
+            {
+                Request = request;
             }
 
             Task SendRequest(object arg)

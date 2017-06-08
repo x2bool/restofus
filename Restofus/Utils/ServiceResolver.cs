@@ -34,7 +34,7 @@ namespace Restofus.Utils
                         AllowAutoRedirect = false
                     }));
                 services.AddSingleton<RequestDispatcher>();
-                services.AddTransient<ReactiveRequestFactory>();
+                services.AddTransient<ReactiveRequestSerializer>();
 
                 services.AddSingleton<Navigator>();
 

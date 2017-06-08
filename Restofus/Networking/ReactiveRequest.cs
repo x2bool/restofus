@@ -7,6 +7,13 @@ namespace Restofus.Networking
 {
     public class ReactiveRequest : ReactiveObject, IDisposable
     {
+        Guid id;
+        public Guid Id
+        {
+            get => id;
+            set => this.RaiseAndSetIfChanged(ref id, value);
+        }
+
         ReactiveMethod method;
         public ReactiveMethod Method
         {
