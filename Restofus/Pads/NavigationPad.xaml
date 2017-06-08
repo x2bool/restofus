@@ -4,25 +4,37 @@
   Background="#8e9bbc"
   Margin="5,5,0,5">
 
-  <Grid>
-
-    <Grid.RowDefinitions>
-      <RowDefinition Height="28" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
+  <Grid RowDefinitions="28,*">
 
     <Rectangle Grid.Row="0" Fill="#cfd6e5"/>
 
-    <TextBox
+    <TreeView
       Grid.Row="1"
-      AcceptsReturn="True"
-      BorderThickness="0">
+      Items="{Binding RootFiles}"
+      BorderThickness="0"
+      Background="#ffffff">
       
-    </TextBox>
+      <TreeView.ItemTemplate>
+        <TreeDataTemplate ItemsSource="{Binding Files}">
+          <StackPanel Orientation="Horizontal">
+            <Image
+              Source="resm:Restofus.Resources.Icons.folder.png?assembly=Restofus.Resources"
+              IsVisible="{Binding IsDirectory}"
+              Width="16"
+              Height="16"/>
+            <Image
+              Source="resm:Restofus.Resources.Icons.file-code.png?assembly=Restofus.Resources"
+              IsVisible="{Binding !IsDirectory}"
+              Width="16"
+              Height="16"/>
+            <TextBlock
+              Margin="8,0,0,0"
+              Text="{Binding Name}"/>
+          </StackPanel>
+        </TreeDataTemplate>
+      </TreeView.ItemTemplate>
+      
+    </TreeView>
 
   </Grid>
     

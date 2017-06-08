@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\file-code.png" />
+    <None Remove="Icons\file-empty.png" />
+    <None Remove="Icons\file-text.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\file-code.png" />
+    <EmbeddedResource Include="Icons\file-empty.png" />
+    <EmbeddedResource Include="Icons\file-text.png" />
+    <EmbeddedResource Include="Icons\folder.png" />
+  </ItemGroup>
+
+</Project>
