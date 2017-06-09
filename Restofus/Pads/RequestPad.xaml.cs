@@ -54,7 +54,7 @@ namespace Restofus.Pads
                     .Where(f => f != null)
                     .Select(CreateRequest)
                     .ObserveOn(RxApp.MainThreadScheduler)
-                    .Subscribe(ObserveNavigation);
+                    .Subscribe(ObserveRequest);
 
                 Methods = ReactiveMethodCollection.CreateDefault();
 
@@ -66,7 +66,7 @@ namespace Restofus.Pads
                 return requestSerializer.Deserialize(new FileInfo(file.Path));
             }
 
-            void ObserveNavigation(ReactiveRequest request)
+            void ObserveRequest(ReactiveRequest request)
             {
                 Request = request;
             }
