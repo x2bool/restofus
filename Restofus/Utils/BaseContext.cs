@@ -9,7 +9,8 @@ namespace Restofus.Utils
     public class BaseContext : ReactiveObject
     {
         IResolver resolver;
-        IDictionary<string, object> cache;
+        IDictionary<string, Type> named;
+        IDictionary<Type, object> cache;
 
         public I18N I18N
         {
@@ -22,8 +23,24 @@ namespace Restofus.Utils
         public BaseContext(IResolver resolver)
         {
             this.resolver = resolver;
-            this.cache = new Dictionary<string, object>();
+
+            this.named = new Dictionary<string, Type>();
+            this.cache = new Dictionary<Type, object>();
+
             self = new ContextAccessor(this);
+        }
+
+        public T Get<T>()
+        {
+            var type = typeof(T);
+
+            if (!cache.TryGetValue(type, out object val))
+            {
+                val = resolver.Resolve<T>();
+                cache.Add(type, val);
+            }
+
+            return (T)val;
         }
 
         public class ContextAccessor
@@ -39,12 +56,19 @@ namespace Restofus.Utils
             {
                 get
                 {
-                    if (!context.cache.TryGetValue(name, out object obj))
+                    if (!context.named.TryGetValue(name, out Type type))
                     {
-                        obj = context.resolver.Resolve(name);
-                        context.cache.Add(name, obj);
+                        type = context.resolver.ResolveType(name);
+                        context.named.Add(name, type);
                     }
-                    return obj;
+
+                    if (!context.cache.TryGetValue(type, out object val))
+                    {
+                        val = context.resolver.Resolve(type);
+                        context.cache.Add(type, val);
+                    }
+
+                    return val;
                 }
             }
         }

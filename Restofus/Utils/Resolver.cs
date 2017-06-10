@@ -34,6 +34,11 @@ namespace Restofus.Utils
             return provider.GetService(named[name]);
         }
 
+        public Type ResolveType(string name)
+        {
+            return named[name];
+        }
+
         static void Add<T>() where T : class
         {
             services.AddTransient<T>();
@@ -84,28 +89,26 @@ namespace Restofus.Utils
         static void Register()
         {
             Add(() => Build());
-
-            AddSingleton(() => new HttpClient<RequestDispatcher>(
-                new HttpClientHandler()
-                {
-                    AllowAutoRedirect = false
-                }));
-            AddSingleton<RequestDispatcher>();
+            
             Add<ReactiveRequestSerializer>();
 
-            AddSingleton<Navigator>();
-
             AddSingleton<I18N>();
-            
-            Add<QueryEditor.Context>();
-            Add<HeadersEditor.Context>();
-
-            Add<HeadersViewer.Context>();
+            AddSingleton<Navigator>();
+            AddSingleton<RequestDispatcher>();
+            AddSingleton(() => new HttpClient<RequestDispatcher>(
+                 new HttpClientHandler()
+                 {
+                     AllowAutoRedirect = false
+                 }));
 
             Add<MainWindow.Context>(nameof(MainWindow));
             Add<NavigationPad.Context>(nameof(NavigationPad));
             Add<RequestPad.Context>(nameof(RequestPad));
             Add<ResponsePad.Context>(nameof(ResponsePad));
+
+            Add<QueryEditor.Context>(nameof(QueryEditor));
+            Add<HeadersEditor.Context>(nameof(HeadersEditor));
+            Add<HeadersViewer.Context>(nameof(HeadersViewer));
         }
 
     }

@@ -15,7 +15,7 @@ namespace Restofus.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Model
+        public class Model : ReactiveObject
         {
             public Items Items { get; } = new Items();
         }

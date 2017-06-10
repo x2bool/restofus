@@ -61,16 +61,14 @@ namespace Restofus.Views
         public class Context : BaseContext
         {
             IDisposable responseSubscription;
+            IDisposable headersSubscription;
             IDisposable contentSubscription;
             IDisposable streamSubscription;
 
             public Context(
                 IResolver resolver,
-                RequestDispatcher httpDispatcher,
-                HeadersViewer.Context headersViewerContext) : base(resolver)
+                RequestDispatcher httpDispatcher) : base(resolver)
             {
-                HeadersViewerContext = headersViewerContext;
-                
                 responseSubscription = httpDispatcher
                     .GetResponseObservable()
                     .ObserveOn(RxApp.MainThreadScheduler)
@@ -84,6 +82,16 @@ namespace Restofus.Views
                 contentSubscription?.Dispose();
                 contentSubscription = response.WhenAnyValue(x => x.Content)
                     .Subscribe(ObserveContent);
+
+                headersSubscription?.Dispose();
+                headersSubscription = response.WhenAnyValue(x => x.Headers)
+                    .Subscribe(ObserveHeaders);
+            }
+
+            void ObserveHeaders(ReactiveHeaderCollection headers)
+            {
+                var viewerContext = Get<HeadersViewer.Context>();
+                viewerContext.Headers = headers;
             }
 
             void ObserveContent(ReactiveResponseContent content)
@@ -99,8 +107,6 @@ namespace Restofus.Views
                 StreamReader reader = new StreamReader(stream);
                 ResponseBodyText = reader.ReadToEnd();
             }
-
-            public HeadersViewer.Context HeadersViewerContext { get; }
             
             ReactiveResponse response;
             public ReactiveResponse Response

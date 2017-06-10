@@ -36,16 +36,11 @@ namespace Restofus.Views
                 IResolver resolver,
                 Navigator navigator,
                 RequestDispatcher httpDispatcher,
-                ReactiveRequestSerializer requestSerializer,
-                QueryEditor.Context queryEditorContext,
-                HeadersEditor.Context headersEditorContext) : base (resolver)
+                ReactiveRequestSerializer requestSerializer) : base (resolver)
             {
                 this.navigator = navigator;
                 this.httpDispatcher = httpDispatcher;
                 this.requestSerializer = requestSerializer;
-
-                QueryEditorContext = queryEditorContext;
-                HeadersEditorContext = headersEditorContext;
                 
                 navigationSubscription = navigator
                     .GetNavigationObservable()
@@ -84,10 +79,6 @@ namespace Restofus.Views
             public ReactiveMethodCollection Methods { get; }
 
             public ReactiveCommand<Unit> SendCommand { get; }
-
-            public QueryEditor.Context QueryEditorContext { get; }
-
-            public HeadersEditor.Context HeadersEditorContext { get; }
         }
         
     }

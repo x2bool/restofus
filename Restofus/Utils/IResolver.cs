@@ -9,5 +9,6 @@ namespace Restofus.Utils
         T Resolve<T>();
         object Resolve(Type type);
         object Resolve(string name);
+        Type ResolveType(string name);
     }
 }

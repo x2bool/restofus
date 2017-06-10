@@ -61,7 +61,7 @@
           <TextBlock Text="{Binding I18N[Headers]}" />
         </TabItem.Header>
 
-        <views:HeadersEditor DataContext="{Binding HeadersEditorContext}" />
+        <views:HeadersEditor DataContext="{Binding Self[HeadersEditor]}" />
       </TabItem>
 
     </TabControl>
