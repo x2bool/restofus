@@ -20,12 +20,12 @@ namespace Restofus
         static void Main(string[] args)
         {
             // configure ioc
-            var provider = ServiceResolver.Build(new ServiceCollection());
+            var resolver = Resolver.Build();
 
             // run application
             AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .Start<MainWindow>(() => provider.GetService<MainWindow.Context>());
+                .Start<MainWindow>(() => resolver.Resolve<MainWindow.Context>());
         }
 
         public override void Initialize()

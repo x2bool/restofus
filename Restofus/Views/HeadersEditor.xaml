@@ -7,7 +7,7 @@
 
     <TextBlock Grid.Row="0" Text="{Binding I18N[Parameters]}" />
 
-    <views:KeyValueEditor Grid.Row="1" DataContext="{Binding KeyValueEditorModel}" />
+    <views:KeyValueEditor Grid.Row="1" DataContext="{Binding L}" />
     
   </Grid>
     

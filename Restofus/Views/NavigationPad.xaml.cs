@@ -20,12 +20,13 @@ namespace Restofus.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context : ReactiveObject
+        public class Context : BaseContext
         {
             Navigator navigator;
 
             public Context(
-                Navigator navigator)
+                IResolver resolver,
+                Navigator navigator) : base (resolver)
             {
                 this.navigator = navigator;
 

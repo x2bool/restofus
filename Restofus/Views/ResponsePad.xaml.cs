@@ -58,18 +58,17 @@ namespace Restofus.Views
             }
         }
 
-        public class Context : ReactiveObject
+        public class Context : BaseContext
         {
             IDisposable responseSubscription;
             IDisposable contentSubscription;
             IDisposable streamSubscription;
 
             public Context(
-                I18N i18n,
+                IResolver resolver,
                 RequestDispatcher httpDispatcher,
-                HeadersViewer.Context headersViewerContext)
+                HeadersViewer.Context headersViewerContext) : base(resolver)
             {
-                I18N = i18n;
                 HeadersViewerContext = headersViewerContext;
                 
                 responseSubscription = httpDispatcher
@@ -102,25 +101,7 @@ namespace Restofus.Views
             }
 
             public HeadersViewer.Context HeadersViewerContext { get; }
-
-            public I18N I18N { get; }
-
-            //string code;
-            //public string Code
-            //{
-            //    get => code;
-            //    set => this.RaiseAndSetIfChanged(ref code, value);
-            //}
-
-            //string time;
-            //public string Time
-            //{
-            //    get => time;
-            //    set => this.RaiseAndSetIfChanged(ref time, value);
-            //}
-
-            //string
-
+            
             ReactiveResponse response;
             public ReactiveResponse Response
             {

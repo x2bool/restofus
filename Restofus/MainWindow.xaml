@@ -25,7 +25,7 @@
     <views:NavigationPad
       Grid.Row="0" 
       Grid.Column="0"
-      DataContext="{Binding NavigationPadContext}" />
+      DataContext="{Binding Self[NavigationPad]}" />
 
     <GridSplitter
       Grid.Row="0"
@@ -35,7 +35,7 @@
     <views:RequestPad
       Grid.Row="0"
       Grid.Column="2"
-      DataContext="{Binding RequestPadContext}" />
+      DataContext="{Binding Self[RequestPad]}" />
 
     <GridSplitter
       Grid.Row="0"
@@ -45,7 +45,7 @@
     <views:ResponsePad
       Grid.Row="0"
       Grid.Column="4"
-      DataContext="{Binding ResponsePadContext}" />
+      DataContext="{Binding Self[ResponsePad]}" />
 
     <views:StatusBar
       Grid.Row="1"

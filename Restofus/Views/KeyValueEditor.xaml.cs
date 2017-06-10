@@ -36,26 +36,11 @@ namespace Restofus.Views
                 set => this.RaiseAndSetIfChanged(ref val, value);
             }
 
-            bool isButton = false;
+            bool isButton;
             public bool IsButton
             {
                 get => isButton;
-                set
-                {
-                    this.RaiseAndSetIfChanged(ref isButton, value);
-                    this.RaiseAndSetIfChanged(ref isItem, !value);
-                }
-            }
-
-            bool isItem = true;
-            public bool IsItem
-            {
-                get => isItem;
-                set
-                {
-                    this.RaiseAndSetIfChanged(ref isItem, value);
-                    this.RaiseAndSetIfChanged(ref isButton, !value);
-                }
+                set => this.RaiseAndSetIfChanged(ref isButton, value);
             }
         }
 

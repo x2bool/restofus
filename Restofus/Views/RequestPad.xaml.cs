@@ -24,7 +24,7 @@ namespace Restofus.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        public class Context : ReactiveObject
+        public class Context : BaseContext
         {
             IDisposable navigationSubscription;
 
@@ -33,12 +33,12 @@ namespace Restofus.Views
             ReactiveRequestSerializer requestSerializer;
 
             public Context(
-                I18N i18n,
+                IResolver resolver,
                 Navigator navigator,
                 RequestDispatcher httpDispatcher,
                 ReactiveRequestSerializer requestSerializer,
                 QueryEditor.Context queryEditorContext,
-                HeadersEditor.Context headersEditorContext)
+                HeadersEditor.Context headersEditorContext) : base (resolver)
             {
                 this.navigator = navigator;
                 this.httpDispatcher = httpDispatcher;
@@ -46,8 +46,6 @@ namespace Restofus.Views
 
                 QueryEditorContext = queryEditorContext;
                 HeadersEditorContext = headersEditorContext;
-
-                I18N = i18n;
                 
                 navigationSubscription = navigator
                     .GetNavigationObservable()
@@ -90,8 +88,6 @@ namespace Restofus.Views
             public QueryEditor.Context QueryEditorContext { get; }
 
             public HeadersEditor.Context HeadersEditorContext { get; }
-
-            public I18N I18N { get; }
         }
         
     }

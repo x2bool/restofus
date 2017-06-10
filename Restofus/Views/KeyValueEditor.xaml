@@ -13,15 +13,18 @@
         <Grid ColumnDefinitions="1*,1*,auto">
 
           <Panel Grid.Column="0">
-            <TextBox IsVisible="{Binding IsParameter}" Text="{Binding Key}" />
+            <TextBox IsVisible="{Binding !IsButton}" Text="{Binding Key}" />
             <Button IsVisible="{Binding IsButton}">
               <TextBlock Text="{Binding I18N[Add]}" />
             </Button>
           </Panel>
 
-          <TextBox IsVisible="{Binding IsParameter}" Grid.Column="1" Text="{Binding Value}" />
+          <TextBox
+            Grid.Column="1"
+            IsVisible="{Binding !IsButton}"
+            Text="{Binding Value}" />
 
-          <Button IsVisible="{Binding IsParameter}" Grid.Column="2">
+          <Button Grid.Column="2" IsVisible="{Binding !IsButton}">
             <TextBlock>X</TextBlock>
           </Button>
           
