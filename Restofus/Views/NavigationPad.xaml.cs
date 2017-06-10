@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace Restofus.Pads
+namespace Restofus.Views
 {
     public class NavigationPad : UserControl<NavigationPad.Context>
     {

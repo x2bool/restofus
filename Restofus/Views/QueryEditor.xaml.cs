@@ -6,7 +6,7 @@ using Restofus.Components;
 using Restofus.Utils;
 using Restofus.Views;
 
-namespace Restofus.Pads
+namespace Restofus.Views
 {
     public class QueryEditor : UserControl<QueryEditor.Context>
     {

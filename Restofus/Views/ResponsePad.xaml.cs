@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Reactive.Linq;
 
-namespace Restofus.Pads
+namespace Restofus.Views
 {
     public class ResponsePad : UserControl<ResponsePad.Context>
     {

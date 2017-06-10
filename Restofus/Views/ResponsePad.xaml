@@ -1,6 +1,6 @@
 ﻿<UserControl
   xmlns="https://github.com/avaloniaui"
-  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
+  xmlns:views="clr-namespace:Restofus.Views;assembly=Restofus"
   xmlns:editor="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
   xmlns:convert="clr-namespace:Restofus.Converters;assembly=Restofus"
   Padding="1"
@@ -35,7 +35,7 @@
           <TextBlock Text="{Binding I18N[Headers]}"/>
         </TabItem.Header>
 
-        <pads:HeadersViewer DataContext="{Binding HeadersViewerContext}" />
+        <views:HeadersViewer DataContext="{Binding HeadersViewerContext}" />
       </TabItem>
 
     </TabControl>

@@ -7,7 +7,7 @@ using Avalonia.Themes.Default;
 using Avalonia.Markup.Xaml;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
-using Restofus.Pads;
+using Restofus.Views;
 using System.Net.Http;
 using Restofus.Components;
 using Restofus.Utils;

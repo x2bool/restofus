@@ -28,16 +28,16 @@
       <ProjectReference Include="..\Restofus.Resources\Restofus.Resources.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Pads\StatusBar.xaml.cs">
+      <Compile Update="Views\StatusBar.xaml.cs">
         <DependentUpon>StatusBar.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Pads\QueryEditor.xaml.cs">
+      <Compile Update="Views\QueryEditor.xaml.cs">
         <DependentUpon>QueryEditor.xaml</DependentUpon>
       </Compile>
       <Compile Update="Views\KeyValueEditor.xaml.cs">
         <DependentUpon>KeyValueEditor.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Pads\HeadersEditor.xaml.cs">
+      <Compile Update="Views\HeadersEditor.xaml.cs">
         <DependentUpon>HeadersEditor.xaml</DependentUpon>
       </Compile>
       <Compile Update="Views\TabView.xaml.cs">

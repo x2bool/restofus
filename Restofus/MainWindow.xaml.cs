@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using Restofus.Components;
-using Restofus.Pads;
+using Restofus.Views;
 
 namespace Restofus
 {

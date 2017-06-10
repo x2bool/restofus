@@ -2,7 +2,7 @@
 using ReactiveUI;
 using Restofus.Components;
 using Restofus.Networking;
-using Restofus.Pads;
+using Restofus.Views;
 using Restofus.Utils;
 using System;
 using System.Collections.Generic;

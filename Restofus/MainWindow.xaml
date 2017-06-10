@@ -1,6 +1,6 @@
 ﻿<Window
   xmlns="https://github.com/avaloniaui"
-  xmlns:pads="clr-namespace:Restofus.Pads;assembly=Restofus"
+  xmlns:views="clr-namespace:Restofus.Views;assembly=Restofus"
   Width="1024"
   Height="480"
   MinWidth="640"
@@ -22,7 +22,7 @@
       <RowDefinition Height="22" />
     </Grid.RowDefinitions>
 
-    <pads:NavigationPad
+    <views:NavigationPad
       Grid.Row="0" 
       Grid.Column="0"
       DataContext="{Binding NavigationPadContext}" />
@@ -32,7 +32,7 @@
       Grid.Column="1"
       Background="#293955" />
 
-    <pads:RequestPad
+    <views:RequestPad
       Grid.Row="0"
       Grid.Column="2"
       DataContext="{Binding RequestPadContext}" />
@@ -42,12 +42,12 @@
       Grid.Column="3"
       Background="#293955" />
 
-    <pads:ResponsePad
+    <views:ResponsePad
       Grid.Row="0"
       Grid.Column="4"
       DataContext="{Binding ResponsePadContext}" />
 
-    <pads:StatusBar
+    <views:StatusBar
       Grid.Row="1"
       Grid.ColumnSpan="5" 
       />
