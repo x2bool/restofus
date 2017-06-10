@@ -26,7 +26,8 @@ namespace Restofus.Views
 
         public class Context : BaseContext
         {
-            IDisposable navigationSubscription;
+            IDisposable requestSubscription;
+            IDisposable headersSubscription;
 
             Navigator navigator;
             RequestDispatcher httpDispatcher;
@@ -42,7 +43,7 @@ namespace Restofus.Views
                 this.httpDispatcher = httpDispatcher;
                 this.requestSerializer = requestSerializer;
                 
-                navigationSubscription = navigator
+                requestSubscription = navigator
                     .GetNavigationObservable()
                     .Where(f => f != null)
                     .Select(CreateRequest)
@@ -62,6 +63,16 @@ namespace Restofus.Views
             void ObserveRequest(ReactiveRequest request)
             {
                 Request = request;
+
+                headersSubscription?.Dispose();
+                headersSubscription = request.WhenAnyValue(x => x.Headers)
+                    .Subscribe(ObserveHeaders);
+            }
+
+            void ObserveHeaders(ReactiveHeaderCollection headers)
+            {
+                var editor = Get<HeadersEditor.Context>();
+                editor.Headers = headers;
             }
 
             Task SendRequest(object arg)

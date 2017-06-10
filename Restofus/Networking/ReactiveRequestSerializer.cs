@@ -15,51 +15,11 @@ namespace Restofus.Networking
 
             using (var reader = file.OpenText())
             {
-                ReadFileHeader(reader, request);
-
                 ReadRequestLine(reader, request);
                 ReadRequestHeaders(reader, request);
-                //ReadRequestBody(reader, request);
             }
 
             return request;
-        }
-
-        void ReadEmptyLine(StreamReader reader)
-        {
-            var line = reader.ReadLine();
-
-            if (line.Length > 0)
-            {
-                throw new FormatException("Empty line was expected");
-            }
-        }
-
-        void ReadFileHeader(StreamReader reader, ReactiveRequest request)
-        {
-            var line = reader.ReadLine();
-            
-            var parts = line.Split(' ');
-
-            if (parts.Length < 2)
-            {
-                throw new FormatException("Invalid file header");
-            }
-
-            if (parts[0] != ".rst")
-            {
-                throw new FormatException("Invalid file header");
-            }
-
-            ShortGuid guid;
-            if (!ShortGuid.TryParse(parts[1], out guid))
-            {
-                throw new FormatException("Invalid file header");
-            }
-
-            request.Id = (Guid)guid;
-
-            ReadEmptyLine(reader);
         }
 
         void ReadRequestLine(StreamReader reader, ReactiveRequest request)

@@ -45,10 +45,10 @@
       </Compile>
     </ItemGroup>
     <ItemGroup>
-      <None Update="Files\abc\example.rst">
+      <None Update="Files\abc\example.req">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Files\test.rst">
+      <None Update="Files\test.req">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
