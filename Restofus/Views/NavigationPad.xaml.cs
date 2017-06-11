@@ -34,7 +34,7 @@ namespace Restofus.Views
                     .Where(f => f != null && !f.IsDirectory)
                     .Subscribe(ObserveFileSelection);
 
-                navigator.GetOpeningObservable()
+                navigator.WhenOpened()
                     .Subscribe(ObserveOpening);
 
                 // TODO: remove this

@@ -14,16 +14,20 @@ using System.Threading.Tasks;
 
 namespace Restofus.Components
 {
-    public class RequestDispatcher
+    public class Dispatcher
     {
-        HttpClient<RequestDispatcher> httpClient;
+        HttpClient<Dispatcher> httpClient;
 
-        public event EventHandler<ReactiveRequest> Sending;
-        public event EventHandler<ReactiveResponse> Receiving;
-        //public event EventHandler<Exception> Exception;
+        event EventHandler<ReactiveRequest> Sending;
+        public IObservable<ReactiveRequest> WhenSending() =>
+            this.FromEvent<ReactiveRequest>(h => Sending += h, h => Sending -= h);
 
-        public RequestDispatcher(
-            HttpClient<RequestDispatcher> httpClient)
+        event EventHandler<ReactiveResponse> Receiving;
+        public IObservable<ReactiveResponse> WhenReceiving() =>
+            this.FromEvent<ReactiveResponse>(h => Receiving += h, h => Receiving -= h);
+
+        public Dispatcher(
+            HttpClient<Dispatcher> httpClient)
         {
             this.httpClient = httpClient;
         }
@@ -120,24 +124,5 @@ namespace Restofus.Components
             return responseContent;
         }
 
-    }
-
-    public static class RequestDispatcherExtensions
-    {
-        public static IObservable<ReactiveRequest> GetRequestObservable(
-            this RequestDispatcher dispatcher)
-        {
-            return Observable.FromEventPattern<ReactiveRequest>(
-                        h => dispatcher.Sending += h, h => dispatcher.Sending -= h)
-                    .Select(e => e.EventArgs);
-        }
-
-        public static IObservable<ReactiveResponse> GetResponseObservable(
-            this RequestDispatcher dispatcher)
-        {
-            return Observable.FromEventPattern<ReactiveResponse>(
-                        h => dispatcher.Receiving += h, h => dispatcher.Receiving -= h)
-                    .Select(e => e.EventArgs);
-        }
     }
 }

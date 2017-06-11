@@ -28,36 +28,23 @@ namespace Restofus.Views
         {
             IDisposable requestSubscription;
             IDisposable headersSubscription;
-
-            Navigator navigator;
-            RequestDispatcher httpDispatcher;
-            ReactiveRequestSerializer requestSerializer;
+            
+            Dispatcher httpDispatcher;
 
             public Context(
                 IResolver resolver,
-                Navigator navigator,
-                RequestDispatcher httpDispatcher,
-                ReactiveRequestSerializer requestSerializer) : base (resolver)
+                Dispatcher httpDispatcher,
+                RequestProvider requestProvider) : base (resolver)
             {
-                this.navigator = navigator;
                 this.httpDispatcher = httpDispatcher;
-                this.requestSerializer = requestSerializer;
                 
-                requestSubscription = navigator
-                    .GetSelectionObservable()
-                    .Where(f => f != null)
-                    .Select(CreateRequest)
+                requestSubscription = requestProvider.WhenRequestReady()
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(ObserveRequest);
 
                 Methods = ReactiveMethodCollection.CreateDefault();
 
                 SendCommand = ReactiveCommand.CreateAsyncTask(SendRequest);
-            }
-
-            ReactiveRequest CreateRequest(ReactiveFile file)
-            {
-                return requestSerializer.Deserialize(new FileInfo(file.Path));
             }
 
             void ObserveRequest(ReactiveRequest request)

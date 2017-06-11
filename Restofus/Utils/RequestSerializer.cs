@@ -1,30 +1,31 @@
-﻿using Restofus.Utils;
+﻿using Restofus.Networking;
+using Restofus.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restofus.Networking
+namespace Restofus.Utils
 {
-    public class ReactiveRequestSerializer
+    public class RequestSerializer
     {
-        public ReactiveRequest Deserialize(FileInfo file)
+        public async Task<ReactiveRequest> Deserialize(FileInfo file)
         {
             var request = new ReactiveRequest();
 
             using (var reader = file.OpenText())
             {
-                ReadRequestLine(reader, request);
-                ReadRequestHeaders(reader, request);
+                await ReadRequestLine(reader, request);
+                await ReadRequestHeaders(reader, request);
             }
 
             return request;
         }
 
-        void ReadRequestLine(StreamReader reader, ReactiveRequest request)
+        async Task ReadRequestLine(StreamReader reader, ReactiveRequest request)
         {
-            var line = reader.ReadLine();
+            var line = await reader.ReadLineAsync();
 
             if (line != null && line.Length > 0)
             {
@@ -42,12 +43,12 @@ namespace Restofus.Networking
             }
         }
 
-        void ReadRequestHeaders(StreamReader reader, ReactiveRequest request)
+        async Task ReadRequestHeaders(StreamReader reader, ReactiveRequest request)
         {
             request.Headers = new ReactiveHeaderCollection();
 
             string line;
-            while ((line = reader.ReadLine()) != null && line.Length > 0)
+            while ((line = await reader.ReadLineAsync()) != null && line.Length > 0)
             {
                 var parts = line.Split(new[] { ':' }, 2);
 
@@ -61,11 +62,6 @@ namespace Restofus.Networking
 
                 request.Headers.Add(new ReactiveHeader(name, val));
             }
-        }
-
-        void ReadRequestBody(StreamReader reader, ReactiveRequest request)
-        {
-            
         }
     }
 }

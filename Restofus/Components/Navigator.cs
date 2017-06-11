@@ -1,4 +1,5 @@
 ﻿using Restofus.Navigation;
+using Restofus.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,15 +12,19 @@ namespace Restofus.Components
 {
     public class Navigator
     {
-        public event EventHandler<ReactiveFile> Selected;
+        event EventHandler<ReactiveFile> Selected;
+        public IObservable<ReactiveFile> WhenSelected() =>
+            this.FromEvent<ReactiveFile>(h => Selected += h, h => Selected -= h);
 
-        public event EventHandler<ReactiveFile> Opened;
+        event EventHandler<ReactiveFile> Opened;
+        public IObservable<ReactiveFile> WhenOpened() =>
+            this.FromEvent<ReactiveFile>(h => Opened += h, h => Opened -= h);
 
         public Task Select(ReactiveFile file)
         {
             Selected?.Invoke(this, file);
 
-            return Task.CompletedTask;
+            return Task.CompletedTask; 
         }
 
         public Task Open(ReactiveFile file)
@@ -97,23 +102,6 @@ namespace Restofus.Components
             }
 
             return path;
-        }
-    }
-
-    public static class NavigatorExtensions
-    {
-        public static IObservable<ReactiveFile> GetSelectionObservable(this Navigator navigator)
-        {
-            return Observable.FromEventPattern<ReactiveFile>(
-                        h => navigator.Selected += h, h => navigator.Selected -= h)
-                    .Select(e => e.EventArgs);
-        }
-
-        public static IObservable<ReactiveFile> GetOpeningObservable(this Navigator navigator)
-        {
-            return Observable.FromEventPattern<ReactiveFile>(
-                        h => navigator.Opened += h, h => navigator.Opened -= h)
-                    .Select(e => e.EventArgs);
         }
     }
 }

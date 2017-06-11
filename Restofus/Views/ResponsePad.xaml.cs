@@ -67,10 +67,9 @@ namespace Restofus.Views
 
             public Context(
                 IResolver resolver,
-                RequestDispatcher httpDispatcher) : base(resolver)
+                Dispatcher httpDispatcher) : base(resolver)
             {
-                responseSubscription = httpDispatcher
-                    .GetResponseObservable()
+                responseSubscription = httpDispatcher.WhenReceiving()
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(ObserveResponse);
             }

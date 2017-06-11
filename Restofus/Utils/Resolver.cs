@@ -90,16 +90,19 @@ namespace Restofus.Utils
         {
             Add(() => Build());
             
-            Add<ReactiveRequestSerializer>();
+            Add<RequestSerializer>();
 
             AddSingleton<I18N>();
             AddSingleton<Navigator>();
-            AddSingleton<RequestDispatcher>();
-            AddSingleton(() => new HttpClient<RequestDispatcher>(
+            AddSingleton<Dispatcher>();
+            AddSingleton(() => new HttpClient<Dispatcher>(
                  new HttpClientHandler()
                  {
                      AllowAutoRedirect = false
                  }));
+
+            AddSingleton<RequestProvider>();
+            AddSingleton<ResponseProvider>();
 
             Add<MainWindow.Context>(nameof(MainWindow));
             Add<NavigationPad.Context>(nameof(NavigationPad));
