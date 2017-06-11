@@ -44,7 +44,7 @@ namespace Restofus.Views
                 this.requestSerializer = requestSerializer;
                 
                 requestSubscription = navigator
-                    .GetNavigationObservable()
+                    .GetSelectionObservable()
                     .Where(f => f != null)
                     .Select(CreateRequest)
                     .ObserveOn(RxApp.MainThreadScheduler)

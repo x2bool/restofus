@@ -30,18 +30,27 @@ namespace Restofus.Views
             {
                 this.navigator = navigator;
 
-                RootFiles = new ReactiveFileCollection();
-                RootFiles.Add(BuildFileTree(Path.GetFullPath(".\\Files")));
-
                 this.WhenAnyValue(x => x.SelectedFile)
                     .Where(f => f != null && !f.IsDirectory)
                     .Subscribe(ObserveFileSelection);
 
-                Task.Run(async () =>
-                {
-                    await Task.Delay(5000);
-                    await navigator.Navigate(null);
-                });
+                navigator.GetOpeningObservable()
+                    .Subscribe(ObserveOpening);
+
+                // TODO: remove this
+                var root = navigator.BuildFileTree(Path.GetFullPath(".\\Files"));
+                navigator.Open(root);
+            }
+
+            void ObserveOpening(ReactiveFile file)
+            {
+                RootFiles = new ReactiveFileCollection();
+                RootFiles.Add(file);
+            }
+
+            void ObserveFileSelection(ReactiveFile file)
+            {
+                navigator.Select(file);
             }
 
             ReactiveFileCollection rootFiles;
@@ -57,46 +66,7 @@ namespace Restofus.Views
                 get => selectedFile;
                 set => this.RaiseAndSetIfChanged(ref selectedFile, value);
             }
-
-            void ObserveFileSelection(ReactiveFile file)
-            {
-                navigator.Navigate(file);
-            }
-
-            ReactiveFile BuildFileTree(string path)
-            {
-                ReactiveFile file = null;
-
-                if (Directory.Exists(path))
-                {
-                    file = new ReactiveFile
-                    {
-                        Path = new DirectoryInfo(path).FullName,
-                        Name = new DirectoryInfo(path).Name,
-                        IsDirectory = true,
-                        Files = new ReactiveFileCollection()
-                    };
-
-                    var children = Enumerable.Concat(
-                        Directory.EnumerateDirectories(path),
-                        Directory.EnumerateFiles(path));
-
-                    foreach (var child in children)
-                    {
-                        file.Files.Add(BuildFileTree(child));
-                    }
-                }
-                else if (File.Exists(path))
-                {
-                    file = new ReactiveFile
-                    {
-                        Path = new FileInfo(path).FullName,
-                        Name = new FileInfo(path).Name
-                    };
-                }
-
-                return file;
-            }
+            
         }
     }
 }
